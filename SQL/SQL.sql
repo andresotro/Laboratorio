@@ -10,7 +10,7 @@ CREATE TABLE remision(IDRemision INTEGER(11) NOT NULL AUTO_INCREMENT, IDPaciente
                       IDMedico INTEGER(11) NOT NULL, PRIMARY KEY(IDRemision));
 					  
 CREATE TABLE medico(IDMedico INTEGER(11) NOT NULL AUTO_INCREMENT, Nombre VARCHAR(100) NOT NULL, Apellido VARCHAR(100) NOT NULL,
-                    Telefono INTEGER(10) NOT NULL, Nro_Registros INTEGER(11) DEFAULT 0, PRIMARY KEY(IDMedico));
+                    Telefono BIGINT(11) NOT NULL, Nro_Registros INTEGER(11) DEFAULT 0, PRIMARY KEY(IDMedico));
 					
 CREATE TABLE examen(IDExamen INTEGER(11) NOT NULL AUTO_INCREMENT, Nombre VARCHAR(100) NOT NULL, Descripcion VARCHAR(255) NOT NULL,
 					PRIMARY KEY(IDExamen));
@@ -63,3 +63,28 @@ INSERT INTO paciente(Nombre, Apellido, Edad, Direccion_casa, IDCiudad, IDGenero)
 	("Karol", "Ballesteros", 39, "Carrera 6 # 41-05", 4, 2),
 	("David", "Silva", 31, "Calle 10 # 5-76", 6, 1),
 	("Carolina", "Galvis", 63, "Calle 7 # 11-02", 6, 2);
+	
+INSERT INTO medico(Nombre, Apellido, Telefono) VALUES
+	("Juan", "Ospina", 3145679304),
+	("Felipe", "García", 3152390567),
+	("Andres", "Perdigón", 3110568490),
+	("Alex", "Rozo", 3120009879),
+	("Jenny", "Perez", 3157390405),
+	("Natalia", "Rivera", 3170988890),
+	("Diego", "Sandoval", 3167829983),
+	("Fran", "Luque", 3133334333);
+	
+INSERT INTO bacteriologa(Nombre, Apellido) VALUES
+	("Laura", "Soto"),
+	("Karen", "Correa");
+
+
+
+
+
+
+
+
+
+
+
