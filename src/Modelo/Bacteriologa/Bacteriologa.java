@@ -5,63 +5,20 @@
  */
 package Modelo.Bacteriologa;
 
-import Modelo.Resultado.Resultado;
 import java.io.Serializable;
-import java.util.Collection;
-import javax.persistence.Basic;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
  * @author USUARIO
  */
-@Entity
-@Table(name = "bacteriologa")
-@XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "Bacteriologa.findAll", query = "SELECT b FROM Bacteriologa b")
-    , @NamedQuery(name = "Bacteriologa.findByIDBacteriologa", query = "SELECT b FROM Bacteriologa b WHERE b.iDBacteriologa = :iDBacteriologa")
-    , @NamedQuery(name = "Bacteriologa.findByNombre", query = "SELECT b FROM Bacteriologa b WHERE b.nombre = :nombre")
-    , @NamedQuery(name = "Bacteriologa.findByApellido", query = "SELECT b FROM Bacteriologa b WHERE b.apellido = :apellido")
-    , @NamedQuery(name = "Bacteriologa.findByUsuario", query = "SELECT b FROM Bacteriologa b WHERE b.usuario = :usuario")
-    , @NamedQuery(name = "Bacteriologa.findByPassword", query = "SELECT b FROM Bacteriologa b WHERE b.password = :password")
-    , @NamedQuery(name = "Bacteriologa.findByIdentificacion", query = "SELECT b FROM Bacteriologa b WHERE b.identificacion = :identificacion")})
 public class Bacteriologa implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "IDBacteriologa")
     private Integer iDBacteriologa;
-    @Basic(optional = false)
-    @Column(name = "Nombre")
     private String nombre;
-    @Basic(optional = false)
-    @Column(name = "Apellido")
     private String apellido;
-    @Basic(optional = false)
-    @Column(name = "Usuario")
     private String usuario;
-    @Basic(optional = false)
-    @Column(name = "Password")
     private String password;
-    @Basic(optional = false)
-    @Column(name = "Identificacion")
     private long identificacion;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "iDBacteriologa")
-    private Collection<Resultado> resultadoCollection;
 
     public Bacteriologa() {
     }
@@ -76,6 +33,14 @@ public class Bacteriologa implements Serializable {
         this.apellido = apellido;
         this.usuario = usuario;
         this.password = password;
+        this.identificacion = identificacion;
+    }
+
+    public Bacteriologa(int id, String nombre, String apellido, long identificacion, String usuario, String contraseña) {
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.usuario = usuario;
+        this.password = contraseña;
         this.identificacion = identificacion;
     }
 
@@ -125,15 +90,6 @@ public class Bacteriologa implements Serializable {
 
     public void setIdentificacion(long identificacion) {
         this.identificacion = identificacion;
-    }
-
-    @XmlTransient
-    public Collection<Resultado> getResultadoCollection() {
-        return resultadoCollection;
-    }
-
-    public void setResultadoCollection(Collection<Resultado> resultadoCollection) {
-        this.resultadoCollection = resultadoCollection;
     }
 
     @Override

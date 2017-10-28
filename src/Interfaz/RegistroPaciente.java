@@ -290,7 +290,7 @@ public class RegistroPaciente extends javax.swing.JFrame {
     
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt, VentanaPrincipal v){
         v.setVisible(true);
-        this.setVisible(false);
+        this.dispose();
     }
     
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt, VentanaPrincipal v){

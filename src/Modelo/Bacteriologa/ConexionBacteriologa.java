@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Modelo.Medico;
+package Modelo.Bacteriologa;
 
 import Conexion.ConexionDB;
 import java.sql.*;
@@ -13,11 +13,11 @@ import java.util.*;
  *
  * @author USUARIO
  */
-public class ConexionMedico {
+public class ConexionBacteriologa {
     
-    public List<Medico> obtenerMedicos() throws Exception{
+    public List<Bacteriologa> obtenerBacteriologas() throws Exception{
         
-        List<Medico> medicos = new ArrayList<>();
+        List<Bacteriologa> bacteriologas = new ArrayList<>();
 
         Connection connection;
         Statement statement;
@@ -27,35 +27,32 @@ public class ConexionMedico {
         connection = ConexionDB.conectar();
 
         //Crear sentencia SQL y statement
-        String sentenciaSQL = "SELECT * FROM paciente";
+        String sentenciaSQL = "SELECT * FROM bacteriologa";
         statement = connection.createStatement();
 
         //Ejecutar SQL y guardar valores de consulta en resultSet
         resultSet = statement.executeQuery(sentenciaSQL);
         
         while (resultSet.next()) {
-            int id = resultSet.getInt("IDMedico");
+            int id = resultSet.getInt("IDBacteriologa");
             String nombre = resultSet.getString("Nombre");
             String apellido = resultSet.getString("Apellido");
             long identificacion = resultSet.getLong("Identificacion");
-            long telefono = resultSet.getLong("Telefono");
-            int noRegistro = resultSet.getInt("Nro_Registros");
             String usuario = resultSet.getString("Usuario");
             String contraseña = resultSet.getString("Password");
-            int idGenero = resultSet.getInt("IDGenero");
 
-            medicos.add(new Medico(id, nombre, apellido, identificacion, telefono, noRegistro, usuario, contraseña, idGenero));
+            bacteriologas.add(new Bacteriologa(id, nombre, apellido, identificacion, usuario, contraseña));
         }
         
         statement.close();
         resultSet.close();
         connection.close();
         
-        return medicos;
+        return bacteriologas;
         
     }
     
-    public void insertarMedico(Medico m) throws Exception{
+    public void insertarBacteriologa(Bacteriologa b) throws Exception{
         
         Connection connection;
         PreparedStatement preparedStatement;
@@ -64,16 +61,13 @@ public class ConexionMedico {
         connection = ConexionDB.conectar();
 
         //Crear sentencia SQL y statement y ejecutar
-        String sentenciaSQL = "INSERT INTO medico (Nombre, Apellido, Telefono, Nro_Registros, Usuario, Password, Identificacion, IDGenero) VALUES (?,?,?,?,?,?,?,?)";
+        String sentenciaSQL = "INSERT INTO bacteriologa (Nombre, Apellido, Usuario, Password, Identificacion) VALUES (?,?,?,?,?)";
         preparedStatement = connection.prepareStatement(sentenciaSQL);
-        preparedStatement.setString(1, m.getNombre());
-        preparedStatement.setString(2, m.getApellido());
-        preparedStatement.setLong(3, m.getTelefono());
-        preparedStatement.setInt(4, m.getNroRegistros());
-        preparedStatement.setString(5, m.getUsuario());
-        preparedStatement.setString(6, m.getPassword());
-        preparedStatement.setLong(7, m.getIdentificacion());
-        preparedStatement.setInt(8, m.getIDGenero());
+        preparedStatement.setString(1, b.getNombre());
+        preparedStatement.setString(2, b.getApellido());
+        preparedStatement.setString(3, b.getUsuario());
+        preparedStatement.setString(4, b.getPassword());
+        preparedStatement.setLong(5, b.getIdentificacion());
         
         preparedStatement.execute();
         

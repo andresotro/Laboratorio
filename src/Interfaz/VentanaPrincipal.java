@@ -265,7 +265,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                     rm.setVisible(true);
                 break;
                 case "Bacterióloga":
-                    RegistroBacteriologa rb = new RegistroBacteriologa();
+                    RegistroBacteriologa rb = new RegistroBacteriologa(this);
                     this.setVisible(false);
                     rb.setLocationRelativeTo(null);
                     rb.setVisible(true);
