@@ -4,7 +4,7 @@ USE laboratorio;
 CREATE TABLE ciudad(IDCiudad INTEGER(11) NOT NULL AUTO_INCREMENT, Nombre VARCHAR(100) NOT NULL, PRIMARY KEY(IDCiudad));
 
 CREATE TABLE paciente(IDPaciente INTEGER(11) NOT NULL AUTO_INCREMENT, Nombre VARCHAR(100) NOT NULL, Apellido VARCHAR(100) NOT NULL, 
-					  Identificacion BIGINT(10) NOT NULL UNIQUE, FechaNacmiento DATE NOT NULL, Direccion_casa VARCHAR(100) NOT NULL, IDCiudad INTEGER(11), 
+					  Identificacion BIGINT(10) NOT NULL UNIQUE, Edad INTEGER(11) NOT NULL, Direccion_casa VARCHAR(100) NOT NULL, IDCiudad INTEGER(11), 
 					  Usuario VARCHAR(50) NOT NULL UNIQUE, Password VARCHAR(100) NOT NULL, IDGenero INTEGER(11) NOT NULL, PRIMARY KEY(IDPaciente));
 					  
 CREATE TABLE remision(IDRemision INTEGER(11) NOT NULL AUTO_INCREMENT, IDPaciente INTEGER(11) NOT NULL, Fecha DATE NOT NULL, 
@@ -53,7 +53,7 @@ INSERT INTO ciudad(Nombre) VALUES
 INSERT INTO genero(Genero) VALUES
 	("Masculino"), ("Femenino");
 
-INSERT INTO paciente(Nombre, Apellido, Identificacion, Edad, Direccion_casa, IDCiudad, Usuario, Password, IDGenero) VALUES
+/*INSERT INTO paciente(Nombre, Apellido, Identificacion, FechaNacimiento, Direccion_casa, IDCiudad, Usuario, Password, IDGenero) VALUES
 	("James", "Rodríguez", 1075939211, "1996-05-09", "Carrera 7 # 84-72", 1, "JaMe", "SoyJames", 1),
 	("Jose", "Gomez", 1015435278, "1970-09-11", "Calle 12 # 34-30", 1, "JoGo", "JuegoenBrasileiro", 1),
 	("Rosa", "Elvira", 845939933, "1949-12-21", "Carrera 4 # 4-36", 5, "RoEl", "Elnoyo", 2),
@@ -65,7 +65,7 @@ INSERT INTO paciente(Nombre, Apellido, Identificacion, Edad, Direccion_casa, IDC
 	("Manuela", "Ballen", 405745205, "1925-10-12", "Carrera 6 # 7-53", 4, "ManuBalle", "Bilobedvalle",2),
 	("Karol", "Ballesteros", 823009345, "1970-12-31", "Carrera 6 # 41-05", 4, "KarolBal", "Pelotacalorada", 2),
 	("David", "Silva", 1001235120, "1987-03-12", "Calle 10 # 5-76", 6, "ElcalvoSilva", "MagodelCity21", 1),
-	("Carolina", "Galvis", 705679390, "1957-03-28", "Calle 7 # 11-02", 6, "CaroGal", "PrimeraGal",2);
+	("Carolina", "Galvis", 705679390, "1957-03-28", "Calle 7 # 11-02", 6, "CaroGal", "PrimeraGal",2);*/
 	
 INSERT INTO medico(Nombre, Apellido, Telefono, Usuario, Password, Identificacion) VALUES
 	("Juan", "Ospina", 3145679304, "JuanEs", "CantanteFalso", 705679399),
