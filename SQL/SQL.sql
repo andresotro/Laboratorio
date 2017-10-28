@@ -4,7 +4,7 @@ USE laboratorio;
 CREATE TABLE ciudad(IDCiudad INTEGER(11) NOT NULL AUTO_INCREMENT, Nombre VARCHAR(100) NOT NULL, PRIMARY KEY(IDCiudad));
 
 CREATE TABLE paciente(IDPaciente INTEGER(11) NOT NULL AUTO_INCREMENT, Nombre VARCHAR(100) NOT NULL, Apellido VARCHAR(100) NOT NULL, 
-					  Identificacion BIGINT(10) NOT NULL UNIQUE, Edad INT(11) NOT NULL, Direccion_casa VARCHAR(100) NOT NULL, IDCiudad INTEGER(11), 
+					  Identificacion BIGINT(10) NOT NULL UNIQUE, FechaNacmiento DATE NOT NULL, Direccion_casa VARCHAR(100) NOT NULL, IDCiudad INTEGER(11), 
 					  Usuario VARCHAR(50) NOT NULL UNIQUE, Password VARCHAR(100) NOT NULL, IDGenero INTEGER(11) NOT NULL, PRIMARY KEY(IDPaciente));
 					  
 CREATE TABLE remision(IDRemision INTEGER(11) NOT NULL AUTO_INCREMENT, IDPaciente INTEGER(11) NOT NULL, Fecha DATE NOT NULL, 
@@ -54,18 +54,18 @@ INSERT INTO genero(Genero) VALUES
 	("Masculino"), ("Femenino");
 
 INSERT INTO paciente(Nombre, Apellido, Identificacion, Edad, Direccion_casa, IDCiudad, Usuario, Password, IDGenero) VALUES
-	("James", "Rodríguez", 1075939211, 22, "Carrera 7 # 84-72", 1, "JaMe", "SoyJames", 1),
-	("Jose", "Gomez", 1015435278, 35, "Calle 12 # 34-30", 1, "JoGo", "JuegoenBrasileiro", 1),
-	("Rosa", "Elvira", 845939933, 68, "Carrera 4 # 4-36", 5, "RoEl", "Elnoyo", 2),
-	("Alejandra", "Ortiz", 775954901, 34, "Calle 3 # 4-89", 5, "AleOr", "Yeseusuarioque", 2),
-	("Alejandro", "Cano", 1055745198, 45, "Calle 1 # 10-8", 2, "AlCano", "ProfesorProfeta", 1),
-	("Manuel", "Castellanos", 1001748999, 58, "Calle 5 # 7-51", 2, "ManuCastel", "DonManu1", 1),
-	("Maria", "Jiménez", 955712568, 25, "Carrera 2 Este # 21-92", 3, "MarJim", "Nomegustaelmar", 2),
-	("Carlos", "Cisneros", 555776654, 58, "Carrera 4 # 2-72", 3, "Carsis", "Carroconsis", 1),
-	("Manuela", "Ballen", 405745205, 88, "Carrera 6 # 7-53", 4, "ManuBalle", "Bilobedvalle",2),
-	("Karol", "Ballesteros", 823009345, 39, "Carrera 6 # 41-05", 4, "KarolBal", "Pelotacalorada", 2),
-	("David", "Silva", 1001235120, 31, "Calle 10 # 5-76", 6, "ElcalvoSilva", "MagodelCity21", 1),
-	("Carolina", "Galvis", 705679390, 63, "Calle 7 # 11-02", 6, "CaroGal", "PrimeraGal",2);
+	("James", "Rodríguez", 1075939211, "1996-05-09", "Carrera 7 # 84-72", 1, "JaMe", "SoyJames", 1),
+	("Jose", "Gomez", 1015435278, "1970-09-11", "Calle 12 # 34-30", 1, "JoGo", "JuegoenBrasileiro", 1),
+	("Rosa", "Elvira", 845939933, "1949-12-21", "Carrera 4 # 4-36", 5, "RoEl", "Elnoyo", 2),
+	("Alejandra", "Ortiz", 775954901, "1981-11-01", "Calle 3 # 4-89", 5, "AleOr", "Yeseusuarioque", 2),
+	("Alejandro", "Cano", 1055745198, "1973-08-03", "Calle 1 # 10-8", 2, "AlCano", "ProfesorProfeta", 1),
+	("Manuel", "Castellanos", 1001748999, "1960-07-19", "Calle 5 # 7-51", 2, "ManuCastel", "DonManu1", 1),
+	("Maria", "Jiménez", 955712568, "1991-07-01", "Carrera 2 Este # 21-92", 3, "MarJim", "Nomegustaelmar", 2),
+	("Carlos", "Cisneros", 555776654, "1975-09-24", "Carrera 4 # 2-72", 3, "Carsis", "Carroconsis", 1),
+	("Manuela", "Ballen", 405745205, "1925-10-12", "Carrera 6 # 7-53", 4, "ManuBalle", "Bilobedvalle",2),
+	("Karol", "Ballesteros", 823009345, "1970-12-31", "Carrera 6 # 41-05", 4, "KarolBal", "Pelotacalorada", 2),
+	("David", "Silva", 1001235120, "1987-03-12", "Calle 10 # 5-76", 6, "ElcalvoSilva", "MagodelCity21", 1),
+	("Carolina", "Galvis", 705679390, "1957-03-28", "Calle 7 # 11-02", 6, "CaroGal", "PrimeraGal",2);
 	
 INSERT INTO medico(Nombre, Apellido, Telefono, Usuario, Password, Identificacion) VALUES
 	("Juan", "Ospina", 3145679304, "JuanEs", "CantanteFalso", 705679399),
@@ -98,6 +98,20 @@ INSERT INTO remision(IDPaciente, Fecha, IDMedico) VALUES
 	(11, "2009-08-22", 7),
 	(12, "2010-10-10", 8),
 	(12, "2011-08-01", 1);
+	
+INSERT INTO examen(Nombre, Descripcion) VALUES
+	("Hemograma", "En el se reflejan todos los elementos o componentes de la sangre, su número, su proporción en el organismo y si sufren alteraciones"),
+	("Urianálisis", "Usado para detectar y medir de manera semicuantitativa distintos componentes eliminados por la orina, incluyendo 
+	productos intermediarios del metabolismo así como también células, bacterias y fragmentos celulares."),
+	("Examen de Heces",  "Usado para detectar enfermedades de todo el tubo digestivo y las glándulas asociadas."),
+	("Perfil Renal", "Usado para detectar qué personas pueden presentar un mayor riesgo de desarrollar enfermedad 
+	renal o para monitorizar a las que ya la han desarrollado."),
+	("Perfil Lipídico", "Usado para determinar el estado del metabolismo de los lípidos corporales."),
+	("Perfil Hepático", "Usado para medir la presencia de algunas enzimas, proteínas y bilirrubina en sangre, 
+	con el objetivo de determinar si existe alguna alteración en el hígado."),
+	("Perfil Tiroidéo", "Utilizado para evaluar la función tiroidea y/o como ayuda en el diagnóstico del hipotiroidismo y del hipertiroidismo 
+	debidos a diversas alteraciones de la tiroides.");
+	
 
 
 
