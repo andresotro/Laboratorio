@@ -81,24 +81,6 @@ INSERT INTO bacteriologa(Nombre, Apellido, Usuario, Password, Identificacion) VA
 	("Laura", "Soto", "LauraSo", "Iosequesabesquienesjpg", 1045630975),
 	("Karen", "Correa", "KarCor", "Khalesieasteregg", 897304591);
 
-INSERT INTO remision(IDPaciente, Fecha, IDMedico) VALUES
-	(1, "2015-06-07", 3),
-	(2, "2017-01-29", 8),
-	(3, "2011-09-09", 8),
-	(3, "2015-02-12", 1),
-	(4, "2017-07-19", 2),
-	(5, "2010-03-10", 4),
-	(6, "2014-07-09", 6),
-	(6, "2015-01-03", 7),
-	(6, "2011-09-12", 5),
-	(8, "2012-12-22", 1),
-	(8, "2016-11-05", 4),
-	(9, "2013-06-29", 3),
-	(10, "2017-10-28", 5),
-	(11, "2009-08-22", 7),
-	(12, "2010-10-10", 8),
-	(12, "2011-08-01", 1);
-	
 INSERT INTO examen(Nombre, Descripcion) VALUES
 	("Hemograma", "En el se reflejan todos los elementos o componentes de la sangre, su número, su proporción en el organismo y si sufren alteraciones"),
 	("Urianálisis", "Usado para detectar y medir de manera semicuantitativa distintos componentes eliminados por la orina, incluyendo 
