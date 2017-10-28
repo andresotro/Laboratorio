@@ -10,7 +10,7 @@ CREATE TABLE paciente(IDPaciente INTEGER(11) NOT NULL AUTO_INCREMENT, Nombre VAR
 CREATE TABLE remision(IDRemision INTEGER(11) NOT NULL AUTO_INCREMENT, IDPaciente INTEGER(11) NOT NULL, Fecha DATE NOT NULL, 
                       IDMedico INTEGER(11) NOT NULL, PRIMARY KEY(IDRemision));
 					  
-CREATE TABLE medico(IDMedico INTEGER(11) NOT NULL AUTO_INCREMENT, Nombre VARCHAR(100) NOT NULL, Apellido VARCHAR(100) NOT NULL,
+CREATE TABLE medico(IDMedico INTEGER(11) NOT NULL AUTO_INCREMENT, Nombre VARCHAR(100) NOT NULL, Apellido VARCHAR(100) NOT NULL, IDGenero INTEGER(11) NOT NULL
                     Telefono BIGINT(11) NOT NULL, Nro_Registros INTEGER(11) DEFAULT 0, Usuario VARCHAR(50) NOT NULL UNIQUE, 
 					Password VARCHAR(100) NOT NULL, Identificacion BIGINT(10) NOT NULL UNIQUE, PRIMARY KEY(IDMedico));
 					
@@ -53,7 +53,7 @@ INSERT INTO ciudad(Nombre) VALUES
 INSERT INTO genero(Genero) VALUES
 	("Masculino"), ("Femenino");
 
-/*INSERT INTO paciente(Nombre, Apellido, Identificacion, FechaNacimiento, Direccion_casa, IDCiudad, Usuario, Password, IDGenero) VALUES
+INSERT INTO paciente(Nombre, Apellido, Identificacion, FechaNacimiento, Direccion_casa, IDCiudad, Usuario, Password, IDGenero) VALUES
 	("James", "Rodríguez", 1075939211, "1996-05-09", "Carrera 7 # 84-72", 1, "JaMe", "SoyJames", 1),
 	("Jose", "Gomez", 1015435278, "1970-09-11", "Calle 12 # 34-30", 1, "JoGo", "JuegoenBrasileiro", 1),
 	("Rosa", "Elvira", 845939933, "1949-12-21", "Carrera 4 # 4-36", 5, "RoEl", "Elnoyo", 2),
@@ -67,15 +67,15 @@ INSERT INTO genero(Genero) VALUES
 	("David", "Silva", 1001235120, "1987-03-12", "Calle 10 # 5-76", 6, "ElcalvoSilva", "MagodelCity21", 1),
 	("Carolina", "Galvis", 705679390, "1957-03-28", "Calle 7 # 11-02", 6, "CaroGal", "PrimeraGal",2);*/
 	
-INSERT INTO medico(Nombre, Apellido, Telefono, Usuario, Password, Identificacion) VALUES
-	("Juan", "Ospina", 3145679304, "JuanEs", "CantanteFalso", 705679399),
-	("Felipe", "García", 3152390567, "FelipGarcia", "Comoelchiqui", 605109391),
-	("Andres", "Perdigón", 3110568490, "Andresper", "EnseñenmeBDplz", 1066791901),
-	("Alex", "Rozo", 3120009879, "Alzorro", "Midocomo190", 902616459),
-	("Jenny", "Perez", 3157390405, "Jenpe", "HailNintendo", 456971432),
-	("Natalia", "Rivera", 3170988890, "Nariver", "JodeteBoca", 376669666),
-	("Diego", "Sandoval", 3167829983, "DieSan", "Diegosensei", 895673426),
-	("Fran", "Luque", 3133334333, "FLuqueño", "BolivianosSA", 1078673109);
+INSERT INTO medico(Nombre, Apellido, IDGenero, Telefono, Usuario, Password, Identificacion) VALUES
+	("Juan", "Ospina", 1, 3145679304, "JuanEs", "CantanteFalso", 705679399),
+	("Felipe", "García", 1, 3152390567, "FelipGarcia", "Comoelchiqui", 605109391),
+	("Andres", "Perdigón", 1, 3110568490, "Andresper", "EnseñenmeBDplz", 1066791901),
+	("Alex", "Rozo", 1, 3120009879, "Alzorro", "Midocomo190", 902616459),
+	("Jenny", "Perez", 2, 3157390405, "Jenpe", "HailNintendo", 456971432),
+	("Natalia", "Rivera", 2, 3170988890, "Nariver", "JodeteBoca", 376669666),
+	("Diego", "Sandoval", 1, 3167829983, "DieSan", "Diegosensei", 895673426),
+	("Fran", "Luque", 1, 3133334333, "FLuqueño", "BolivianosSA", 1078673109);
 	
 INSERT INTO bacteriologa(Nombre, Apellido, Usuario, Password, Identificacion) VALUES
 	("Laura", "Soto", "LauraSo", "Iosequesabesquienesjpg", 1045630975),
