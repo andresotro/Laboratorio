@@ -53,34 +53,51 @@ INSERT INTO ciudad(Nombre) VALUES
 INSERT INTO genero(Genero) VALUES
 	("Masculino"), ("Femenino");
 
-INSERT INTO paciente(Nombre, Apellido, Edad, Direccion_casa, IDCiudad, IDGenero) VALUES
-	("James", "Rodríguez", 22, "Carrera 7 # 84-72", 1, 1),
-	("Jose", "Gomez", 35, "Calle 12 # 34-30", 1, 1),
-	("Rosa", "Elvira", 68, "Carrera 4 # 4-36", 5, 2),
-	("Alejandra", "Ortiz", 28, "Calle 3 # 4-89", 5, 2),
-	("Alejandro", "Cano", 45, "Calle 1 # 10-8", 2, 1),
-	("Manuel", "Castellanos", 58, "Calle 5 # 7-51", 2, 1),
-	("Maria", "Jiménez", 25, "Carrera 2 Este # 21-92", 3, 2),
-	("Carlos", "Cisneros", 58, "Carrera 4 # 2-72", 3, 1),
-	("Manuela", "Ballen", 88, "Carrera 6 # 7-53", 4, 2),
-	("Karol", "Ballesteros", 39, "Carrera 6 # 41-05", 4, 2),
-	("David", "Silva", 31, "Calle 10 # 5-76", 6, 1),
-	("Carolina", "Galvis", 63, "Calle 7 # 11-02", 6, 2);
+INSERT INTO paciente(Nombre, Apellido, Identificacion, Edad, Direccion_casa, IDCiudad, Usuario, Password, IDGenero) VALUES
+	("James", "Rodríguez", 1075939211, 22, "Carrera 7 # 84-72", 1, "JaMe", "SoyJames", 1),
+	("Jose", "Gomez", 1015435278, 35, "Calle 12 # 34-30", 1, "JoGo", "JuegoenBrasileiro", 1),
+	("Rosa", "Elvira", 845939933, 68, "Carrera 4 # 4-36", 5, "RoEl", "Elnoyo", 2),
+	("Alejandra", "Ortiz", 775954901, 34, "Calle 3 # 4-89", 5, "AleOr", "Yeseusuarioque", 2),
+	("Alejandro", "Cano", 1055745198, 45, "Calle 1 # 10-8", 2, "AlCano", "ProfesorProfeta", 1),
+	("Manuel", "Castellanos", 1001748999, 58, "Calle 5 # 7-51", 2, "ManuCastel", "DonManu1", 1),
+	("Maria", "Jiménez", 955712568, 25, "Carrera 2 Este # 21-92", 3, "MarJim", "Nomegustaelmar", 2),
+	("Carlos", "Cisneros", 555776654, 58, "Carrera 4 # 2-72", 3, "Carsis", "Carroconsis", 1),
+	("Manuela", "Ballen", 405745205, 88, "Carrera 6 # 7-53", 4, "ManuBalle", "Bilobedvalle",2),
+	("Karol", "Ballesteros", 823009345, 39, "Carrera 6 # 41-05", 4, "KarolBal", "Pelotacalorada", 2),
+	("David", "Silva", 1001235120, 31, "Calle 10 # 5-76", 6, "ElcalvoSilva", "MagodelCity21", 1),
+	("Carolina", "Galvis", 705679390, 63, "Calle 7 # 11-02", 6, "CaroGal", "PrimeraGal",2);
 	
-INSERT INTO medico(Nombre, Apellido, Telefono) VALUES
-	("Juan", "Ospina", 3145679304),
-	("Felipe", "García", 3152390567),
-	("Andres", "Perdigón", 3110568490),
-	("Alex", "Rozo", 3120009879),
-	("Jenny", "Perez", 3157390405),
-	("Natalia", "Rivera", 3170988890),
-	("Diego", "Sandoval", 3167829983),
-	("Fran", "Luque", 3133334333);
+INSERT INTO medico(Nombre, Apellido, Telefono, Usuario, Password, Identificacion) VALUES
+	("Juan", "Ospina", 3145679304, "JuanEs", "CantanteFalso", 705679399),
+	("Felipe", "García", 3152390567, "FelipGarcia", "Comoelchiqui", 605109391),
+	("Andres", "Perdigón", 3110568490, "Andresper", "EnseñenmeBDplz", 1066791901),
+	("Alex", "Rozo", 3120009879, "Alzorro", "Midocomo190", 902616459),
+	("Jenny", "Perez", 3157390405, "Jenpe", "HailNintendo", 456971432),
+	("Natalia", "Rivera", 3170988890, "Nariver", "JodeteBoca", 376669666),
+	("Diego", "Sandoval", 3167829983, "DieSan", "Diegosensei", 895673426),
+	("Fran", "Luque", 3133334333, "FLuqueño", "BolivianosSA", 1078673109);
 	
-INSERT INTO bacteriologa(Nombre, Apellido) VALUES
-	("Laura", "Soto"),
-	("Karen", "Correa");
+INSERT INTO bacteriologa(Nombre, Apellido, Usuario, Password, Identificacion) VALUES
+	("Laura", "Soto", "LauraSo", "Iosequesabesquienesjpg", 1045630975),
+	("Karen", "Correa", "KarCor", "Khalesieasteregg", 897304591);
 
+INSERT INTO remision(IDPaciente, Fecha, IDMedico) VALUES
+	(1, "2015-06-07", 3),
+	(2, "2017-01-29", 8),
+	(3, "2011-09-09", 8),
+	(3, "2015-02-12", 1),
+	(4, "2017-07-19", 2),
+	(5, "2010-03-10", 4),
+	(6, "2014-07-09", 6),
+	(6, "2015-01-03", 7),
+	(6, "2011-09-12", 5),
+	(8, "2012-12-22", 1),
+	(8, "2016-11-05", 4),
+	(9, "2013-06-29", 3),
+	(10, "2017-10-28", 5),
+	(11, "2009-08-22", 7),
+	(12, "2010-10-10", 8),
+	(12, "2011-08-01", 1);
 
 
 
