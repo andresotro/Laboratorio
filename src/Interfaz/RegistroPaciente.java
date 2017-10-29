@@ -301,8 +301,8 @@ public class RegistroPaciente extends javax.swing.JFrame {
         String edad = EdadP.getText();
         String direccion = DireccionP.getText();
         Object ciudad = CiudadP.getSelectedItem();
-        String usuario = contraseña.getText();
-        String password = this.usuario.getText();
+        String usuario = this.usuario.getText();
+        String password = contraseña.getText();
         Object genero = GeneroP.getSelectedItem();
 
         if (nombre == null || apellido == null || identificacion == null || edad == null || direccion == null || ciudad == null || usuario == null || password == null || genero == null) {
@@ -324,6 +324,9 @@ public class RegistroPaciente extends javax.swing.JFrame {
                 e.printStackTrace();
             }
         }
+        
+        v.setVisible(true);
+        this.dispose();
     }
     
     private void setModeloCiudad(){

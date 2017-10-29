@@ -6,14 +6,13 @@
 package Interfaz;
 
 import Modelo.Bacteriologa.Bacteriologa;
-import Modelo.Examen.ConexionExamen;
+import Modelo.Examen.Examen;
 import Modelo.ExamenRemision.ConexionExaRem;
-import Modelo.Paciente.ConexionPaciente;
-import Modelo.Remision.ConexionRemision;
-import Modelo.Remision.Remision;
 import java.awt.event.ActionEvent;
+import java.sql.SQLException;
 import java.util.*;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -23,6 +22,7 @@ public class SeleccionRemision extends javax.swing.JFrame {
 
     /**
      * Creates new form SeleccionRemision
+     * @param bac
      */
     public SeleccionRemision(Bacteriologa bac) {
         initComponents(bac);
@@ -118,7 +118,14 @@ public class SeleccionRemision extends javax.swing.JFrame {
     }// </editor-fold>   
 
     private void jButton1ActionPerformed(ActionEvent evt) {
-        
+        if(Remision.equals("")){
+            JOptionPane.showMessageDialog(rootPane, "Ingrese el examen a completar");
+        }
+        else{
+            this.setVisible(false);
+            VentanaBacteriologa d = new VentanaBacteriologa();
+            d.setVisible(true);
+        }
     }
 
     private void jButton2ActionPerformed(ActionEvent evt) {
@@ -137,7 +144,7 @@ public class SeleccionRemision extends javax.swing.JFrame {
                 remisiones.add(s);
             }
             Remision.setModel(new DefaultComboBoxModel(remisiones.toArray(new String[remisiones.size()])));
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }

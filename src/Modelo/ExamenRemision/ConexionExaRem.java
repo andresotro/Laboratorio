@@ -89,7 +89,7 @@ public class ConexionExaRem {
             String nombrePaciente = resultSet.getString("NombrePaciente");
             String nombreExamen = resultSet.getString("NombreExamen");
 
-            nombres.add( nombrePaciente + " - " + nombreExamen );
+            nombres.add(nombreExamen+" de "+ nombrePaciente);
         }
 
         statement.close();
