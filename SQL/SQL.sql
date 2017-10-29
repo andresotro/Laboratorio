@@ -8,7 +8,7 @@ CREATE TABLE paciente(IDPaciente INTEGER(11) NOT NULL AUTO_INCREMENT, Nombre VAR
 					  Usuario VARCHAR(50) NOT NULL UNIQUE, Password VARCHAR(100) NOT NULL, IDGenero INTEGER(11) NOT NULL, PRIMARY KEY(IDPaciente));
 					  
 CREATE TABLE remision(IDRemision INTEGER(11) NOT NULL AUTO_INCREMENT, IDPaciente INTEGER(11) NOT NULL, Fecha DATE NOT NULL, 
-					  VerificaParametros BOOLEAN DEFAULT FALSE, IDMedico INTEGER(11) NOT NULL, Razon VARCHAR(255) NOT NULL, PRIMARY KEY(IDRemision));
+                      IDMedico INTEGER(11) NOT NULL, Razon VARCHAR(255) NOT NULL, PRIMARY KEY(IDRemision));
 					  
 CREATE TABLE medico(IDMedico INTEGER(11) NOT NULL AUTO_INCREMENT, Nombre VARCHAR(100) NOT NULL, Apellido VARCHAR(100) NOT NULL, IDGenero INTEGER(11) NOT NULL,
                     Telefono BIGINT(11) NOT NULL, Nro_Registros INTEGER(11) DEFAULT 0, Usuario VARCHAR(50) NOT NULL UNIQUE, 
@@ -115,10 +115,10 @@ INSERT INTO parametro(IDExamen, ValorMinimo, ValorMaximo, Nombre, Descripcion) V
 	(4, 0.6, 1.2, "Creatinina", "Producto Desecho de la Sangre que es eliminado por los riñones."),
 	(4, 7, 20, "Urea", "Producto de la Degradacion de las Proteinas."),
 	(4, 3, 8.5, "Acido Urico", "Producto Generado cuando se descomponen las purinas."),
-	(4, 150, 200, "Trigliceridos", "Tipo de Lípidos que se encuentran en el cuerpo."),
 	(5, 200, 240, "Colesterol Total", "Cantidad Total de Colesterol HDL y LDL."),
 	(5, 40, 60, "Colesterol HDL", "Colesterol bueno que ayuda a eliminar el colesterol LDL."),
 	(5, 100, 160, "Colesterol LDL", "Colesterol malo, principal causa de obstrucciones en las arterias."),
+	(4, 150, 200, "Trigliceridos", "Tipo de Lípidos que se encuentran en el cuerpo."),
 	(6, 0, 10, "Proteinas", "Moleculas formadas por Aminoacidos."),
 	(6, 0.3, 1.3, "Bilirrubina Total", "Pigmento de color amarillo que se encuentra en la sangre y las heces."),
 	(6, 33, 96, "Fosfatasa Alcalina", "Proteína que se encuentra en todos los tejidos corporales."),
@@ -133,12 +133,13 @@ INSERT INTO parametro(IDExamen, ValorMinimo, ValorMaximo, Nombre, Descripcion) V
 	(7, 5.4, 11.7, "Tiroxina T4", "Hormona producida por la tiroides, que juega papel en la energía."),
 	(7, 77, 135, "Triyodotironina T3", "Hormona Tiroidea que juega un papel importante en el metabolismo.");
 	
-CREATE VIEW PacienteExamen AS
-SELECT CONCAT(p.Nombre,' ',p.Apellido) AS NombrePaciente, e.Nombre AS NombreExamen
-FROM remision_examen re
-INNER JOIN Examen e ON re.IDExamen = e.IDExamen
-INNER JOIN Remision r ON re.IDRemision = r.IDRemision
-INNER JOIN Paciente p ON p.IDPaciente = r.IDPaciente;	
+CREATE VIEW PacienteExamen AS 
+ SELECT re.IDExamen, re.IDRemision, CONCAT(p.Nombre,' ',p.Apellido) AS NombrePaciente, e.Nombre AS NombreExamen
+ FROM remision_examen re
+ INNER JOIN Examen e ON re.IDExamen = e.IDExamen
+ INNER JOIN Remision r ON re.IDRemision = r.IDRemision
+ INNER JOIN Paciente p ON p.IDPaciente = r.IDPaciente
+ ORDER BY re.IDRemision;	
 	
 	
 
