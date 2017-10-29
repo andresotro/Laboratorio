@@ -119,7 +119,6 @@ public class SeleccionRemision extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(ActionEvent evt, Bacteriologa bac){
         try{
-            System.out.println(bac.getNombre());
             String remision = Remision.getSelectedItem().toString();
             this.setVisible(false);
             VentanaBacteriologa d = new VentanaBacteriologa(remision, bac);

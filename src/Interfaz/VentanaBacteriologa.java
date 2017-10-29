@@ -288,7 +288,6 @@ public class VentanaBacteriologa extends javax.swing.JFrame {
             ConexionExamen ce = new ConexionExamen();
             ConexionParametro cp = new ConexionParametro();
             ConexionResultado cs = new ConexionResultado();
-            System.out.println(bac.getIDBacteriologa());
             
             String[] partes = remision.split(" - ");
             String[] iDs = partes[0].split("");
@@ -322,6 +321,7 @@ public class VentanaBacteriologa extends javax.swing.JFrame {
                     resultado.setFechaRealizacion(date2);
                     cs.insertarResultado(resultado);
                 }
+                cr.actualizarVerificado(r.getIDRemision());
                 JOptionPane.showMessageDialog(null, "¡Registro de Parámetros completado de manera exitosa!");
                 SeleccionRemision sr = new SeleccionRemision(bac);
                 sr.setLocationRelativeTo(null);

@@ -368,7 +368,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         for (Bacteriologa bacteriologa : b.obtenerBacteriologas()){
             if(bacteriologa.getUsuario().equals(usuario) && bacteriologa.getPassword().equals(password)) {
                 bac = bacteriologa;
-                System.out.println(bac.getIDBacteriologa());
                 encontrado = true;
                 SeleccionRemision v = new SeleccionRemision(bac);
                 v.setLocationRelativeTo(null);

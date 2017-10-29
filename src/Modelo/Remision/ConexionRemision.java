@@ -20,9 +20,9 @@ import java.util.List;
  * @author Andrés
  */
 public class ConexionRemision {
-    
-    public List<Remision> obtenerRemisiones() throws Exception{
-        
+
+    public List<Remision> obtenerRemisiones() throws Exception {
+
         List<Remision> remisiones = new ArrayList<>();
 
         Connection connection;
@@ -38,7 +38,7 @@ public class ConexionRemision {
 
         //Ejecutar SQL y guardar valores de consulta en resultSet
         resultSet = statement.executeQuery(sentenciaSQL);
-        
+
         while (resultSet.next()) {
             int id = resultSet.getInt("IDRemision");
             int idPaciente = resultSet.getInt("idPaciente");
@@ -48,15 +48,15 @@ public class ConexionRemision {
             boolean verifica = resultSet.getBoolean("VerificaParametros");
             remisiones.add(new Remision(id, idPaciente, fecha, idMedico, razon, verifica));
         }
-        
+
         statement.close();
         resultSet.close();
         connection.close();
-        
+
         return remisiones;
-        
+
     }
-    
+
     public void insertarRemision(Remision r) {
 
         try {
@@ -85,9 +85,9 @@ public class ConexionRemision {
             e.printStackTrace();
         }
     }
-    
-    public Remision obtenerRemision( Remision r ) throws Exception{
-        
+
+    public Remision obtenerRemision(Remision r) throws Exception {
+
         Remision remision = new Remision();
 
         Connection connection;
@@ -109,7 +109,7 @@ public class ConexionRemision {
 
         //Ejecutar SQL y guardar valores de consulta en resultSet
         resultSet = preparedStatement.executeQuery();
-        
+
         while (resultSet.next()) {
             int id = resultSet.getInt("IDRemision");
             int idPaciente = resultSet.getInt("idPaciente");
@@ -119,17 +119,17 @@ public class ConexionRemision {
             boolean Verifica = resultSet.getBoolean("VerificaParametros");
             remision = new Remision(id, idPaciente, fecha, idMedico, razon, Verifica);
         }
-        
+
         preparedStatement.close();
         resultSet.close();
         connection.close();
-        
+
         return remision;
-        
+
     }
-    
-        public Remision obtenerRemision( int iDRemision ) throws Exception{
-        
+
+    public Remision obtenerRemision(int iDRemision) throws Exception {
+
         Remision remision = new Remision();
 
         Connection connection;
@@ -140,27 +140,52 @@ public class ConexionRemision {
         connection = ConexionDB.conectar();
 
         //Crear sentencia SQL y statement
-        String sentenciaSQL = "SELECT * FROM remision WHERE IDRemision="+iDRemision;
+        String sentenciaSQL = "SELECT * FROM remision WHERE IDRemision=" + iDRemision;
         preparedStatement = connection.prepareStatement(sentenciaSQL);
 
         //Ejecutar SQL y guardar valores de consulta en resultSet
         resultSet = preparedStatement.executeQuery();
-        
+
         while (resultSet.next()) {
             int id = resultSet.getInt("IDRemision");
             int idPaciente = resultSet.getInt("idPaciente");
             Date fecha = resultSet.getDate("Fecha");
             int idMedico = resultSet.getInt("IDMedico");
             String razon = resultSet.getString("Razon");
-            remision = new Remision(id, idPaciente, fecha, idMedico, razon);
+            boolean Verifica = resultSet.getBoolean("VerificaParametros");
+            remision = new Remision(id, idPaciente, fecha, idMedico, razon, Verifica);
         }
-        
+
         preparedStatement.close();
         resultSet.close();
         connection.close();
-        
+
         return remision;
-        
+
     }
     
+    public Remision actualizarVerificado(int iDRemision) throws Exception {
+
+        Remision remision = new Remision();
+
+        Connection connection;
+        PreparedStatement preparedStatement;
+
+        //Establecer la conexi�n
+        connection = ConexionDB.conectar();
+
+        //Crear sentencia SQL y statement
+        String sentenciaSQL = "UPDATE remision SET VerificaParametros=1 WHERE IDRemision="+iDRemision;
+        preparedStatement = connection.prepareStatement(sentenciaSQL);
+
+        //Ejecutar SQL
+        preparedStatement.executeUpdate();
+        
+        preparedStatement.close();
+        connection.close();
+
+        return remision;
+
+    }
+
 }
