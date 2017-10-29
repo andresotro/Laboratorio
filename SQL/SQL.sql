@@ -27,12 +27,12 @@ CREATE TABLE bacteriologa(IDBacteriologa INTEGER(11) NOT NULL AUTO_INCREMENT, No
 CREATE TABLE laboratorio(IDLaboratorio INTEGER(11) NOT NULL, NIT VARCHAR(20) NOT NULL, Nombre VARCHAR(100) NOT NULL,
 						PRIMARY KEY(IDLaboratorio));
 						
-CREATE TABLE parametro(IDParametro INTEGER(11) NOT NULL AUTO_INCREMENT, IDExamen INTEGER(11), ValorMinimo INT(11) NOT NULL, 
-					   ValorMaximo INT(11) NOT NULL, Nombre VARCHAR(100) NOT NULL, Descripcion VARCHAR(255) NOT NULL, 
+CREATE TABLE parametro(IDParametro INTEGER(11) NOT NULL AUTO_INCREMENT, IDExamen INTEGER(11), ValorMinimo FLOAT NOT NULL, 
+					   ValorMaximo FLOAT NOT NULL, Nombre VARCHAR(100) NOT NULL, Descripcion VARCHAR(255) NOT NULL, 
 					   PRIMARY KEY(IDParametro));
 					   
 CREATE TABLE resultado(IDResultado INTEGER(11) NOT NULL AUTO_INCREMENT, IDParametro INTEGER(11) NOT NULL, IDPaciente INTEGER(11) NOT NULL,
-					   Valor INT(11) NOT NULL, IDBacteriologa INTEGER(11) NOT NULL, Fecha_Realizacion DATE NOT NULL, PRIMARY KEY(IDResultado));
+					   Valor FLOAT NOT NULL, IDBacteriologa INTEGER(11) NOT NULL, Fecha_Realizacion DATE NOT NULL, PRIMARY KEY(IDResultado));
 					   
 CREATE TABLE genero(IDGenero INTEGER(11) NOT NULL AUTO_INCREMENT, Genero VARCHAR(100) NOT NULL, PRIMARY KEY(IDGenero));
 					   
@@ -93,6 +93,48 @@ INSERT INTO examen(Nombre, Descripcion) VALUES
 	con el objetivo de determinar si existe alguna alteración en el hígado."),
 	("Perfil Tiroidéo", "Utilizado para evaluar la función tiroidea y/o como ayuda en el diagnóstico del hipotiroidismo y del hipertiroidismo 
 	debidos a diversas alteraciones de la tiroides.");
+	
+INSERT INTO parametro(IDExamen, ValorMinimo, ValorMaximo, Nombre, Descripcion) VALUES
+	(1, 4.50, 6.20, "Globulos Rojos", "Celulas Sanguineas mas Importantes."),
+	(1, 14, 17.5, "Hemoglobina", "Proteina formada por el hierro."),
+	(1, 0.9, 4.52, "Linfocitos", "Tipos de Globulos Blancos."),
+	(1, 0.09, 0.45, "Eosinófilos", "Tipos de Globulos Blancos."),
+	(1, 150, 450, "Plaquetas", "Elementos mas Pequeños de la Sangre."),
+	(1, 88, 100, "VCM", "Volumen Corpuscular Medio."),
+	(1, 0, 1.24, "Monocitos", "Tipos de Globulos Blancos."),
+	(1, 0, 0.11, "Basofilos", "Tipos de Globulos Blancos."),
+	(2, 4.5, 8, "pH", "Acidez o Alcalinidad de la Orina."),
+	(2, 0, 10, "Leucocitos", "Globulos Blancos."),
+	(2, 0, 30, "Glucosa", "Azucar en la sangre."),
+	(2, 0, 5, "Cuerpos Cetónicos", "Productos de desecho de las grasas."),
+	(2, 0, 5, "SEC", "Celulas Epiteliales Escamosas."),
+	(3, 0, 5, "Grasa", "Cantidad de Grasa en las Heces."),
+	(3, 0, 2, "Nitrogeno", "Indicador de Digestibilidad."),
+	(3, 40, 280, "Urobilinógeno", "Producto Incoloro producido por Bacterias en la Flora Intestinal."),
+	(3, 0, 200, "Peso", "Promedio de Peso de Materia Fecal."),
+	(4, 0.6, 1.2, "Creatinina", "Producto Desecho de la Sangre que es eliminado por los riñones."),
+	(4, 7, 20, "Urea", "Producto de la Degradacion de las Proteinas."),
+	(4, 3, 8.5, "Acido Urico", "Producto Generado cuando se descomponen las purinas."),
+	(5, 200, 240, "Colesterol Total", "Cantidad Total de Colesterol HDL y LDL."),
+	(5, 40, 60, "Colesterol HDL", "Colesterol bueno que ayuda a eliminar el colesterol LDL."),
+	(5, 100, 160, "Colesterol LDL", "Colesterol malo, principal causa de obstrucciones en las arterias."),
+	(4, 150, 200, "Trigliceridos", "Tipo de Lípidos que se encuentran en el cuerpo."),
+	(6, 0, 10, "Proteinas", "Moleculas formadas por Aminoacidos."),
+	(6, 0.3, 1.3, "Bilirrubina Total", "Pigmento de color amarillo que se encuentra en la sangre y las heces."),
+	(6, 33, 96, "Fosfatasa Alcalina", "Proteína que se encuentra en todos los tejidos corporales."),
+	(6, 9, 58, "Gamma Glutamiltransferasa", "Enzima que se encuentra en las celulas del higado."),
+	(6, 5, 12, "Colinesterasa", "Enzima que se encuentra en la sangre."),
+	(6, 7, 41, "Alanino aminotransferasa", "Enzima con gran concentración en el higado."),
+	(7, 0, 7, "Calcitocina", "Hormona que interviene en el metabolismo del calcio y el fósforo."),
+	(7, 1.3, 3, "TBG", "Globulina transportadora de tiroxina."),
+	(7, 8, 51, "PTH", "Hormona Paratiroidea."),
+	(7, 1.3, 31.8, "Tiroglobulina", "Proteína sintetizada por la glándula tiroidea."),
+	(7, 0.34, 4.25, "Tirotropina", "Hormona estimulante de la Tiroides"),
+	(7, 5.4, 11.7, "Tiroxina T4", "Hormona producida por la tiroides, que juega papel en la energía."),
+	(7, 77, 135, "Triyodotironina T3", "Hormona Tiroidea que juega un papel importante en el metabolismo.");
+	
+	
+	
 	
 
 
