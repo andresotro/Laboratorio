@@ -3,27 +3,25 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Modelo.Examen;
+package Modelo.Remision;
 
 import Conexion.ConexionDB;
-import Modelo.Paciente.Paciente;
-import Modelo.Remision.Remision;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 /**
  *
  * @author Andrés
  */
-public class ConexionExamen {
-    public List<Examen> obtenerExamenes() throws Exception{
+public class ConexionRemision {
+    public List<Remision> obtenerRemision() throws Exception{
         
-        List<Examen> examenes = new ArrayList<>();
+        List<Remision> remisiones = new ArrayList<>();
 
         Connection connection;
         Statement statement;
@@ -33,29 +31,28 @@ public class ConexionExamen {
         connection = ConexionDB.conectar();
 
         //Crear sentencia SQL y statement
-        String sentenciaSQL = "SELECT * FROM examen";
+        String sentenciaSQL = "SELECT * FROM remision";
         statement = connection.createStatement();
 
         //Ejecutar SQL y guardar valores de consulta en resultSet
         resultSet = statement.executeQuery(sentenciaSQL);
         
         while (resultSet.next()) {
-            int id = resultSet.getInt("IDExamen");
-            String nombre = resultSet.getString("Nombre");
-            String descripcion = resultSet.getString("Descripcion");
-            examenes.add(new Examen(id, nombre, descripcion));
+            int id = resultSet.getInt("IDRemision");
+            String fecha = resultSet.getString("Fecha");
+            String razon = resultSet.getString("Razon");
+            remisiones.add(new Remision(id, fecha, razon));
         }
         
         statement.close();
         resultSet.close();
         connection.close();
         
-        return examenes;
+        return remisiones;
         
     }
     
-    
-    public void insertarExamen(Examen e) throws Exception{
+    public void insertarRemision(Remision r) throws Exception{
         
         Connection connection;
         PreparedStatement preparedStatement;
@@ -64,10 +61,10 @@ public class ConexionExamen {
         connection = ConexionDB.conectar();
 
         //Crear sentencia SQL y statement y ejecutar
-        String sentenciaSQL = "INSERT INTO examen (Nombre, Descripcion) VALUES (?,?,?,?,?,?,?,?,?)";
+        String sentenciaSQL = "INSERT INTO remision (Fecha, Razon) VALUES (?,?,?,?,?,?,?,?,?)";
         preparedStatement = connection.prepareStatement(sentenciaSQL);
-        preparedStatement.setString(1, e.getNombre());
-        preparedStatement.setString(2, e.getDescripcion());
+        preparedStatement.setString(1, r.getFecha());
+        preparedStatement.setString(2, r.getRazon());
         preparedStatement.execute();
         
         preparedStatement.close();

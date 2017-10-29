@@ -10,14 +10,15 @@ import Modelo.Medico.Medico;
 import Modelo.Examen.Examen;
 import java.io.Serializable;
 import java.util.Collection;
-import java.util.Date;
+import java.sql.Date;
 import javax.xml.bind.annotation.XmlTransient;
 
 public class Remision implements Serializable {
 
     private Integer iDRemision;
-    private Date fecha;
+    private String fecha;
     private Collection<Examen> examenCollection;
+    private String razon;
     private Medico iDMedico;
     private Paciente iDPaciente;
 
@@ -28,9 +29,10 @@ public class Remision implements Serializable {
         this.iDRemision = iDRemision;
     }
 
-    public Remision(Integer iDRemision, Date fecha) {
+    public Remision(Integer iDRemision, String fecha, String razon) {
         this.iDRemision = iDRemision;
         this.fecha = fecha;
+        this.razon = razon;
     }
 
     public Integer getIDRemision() {
@@ -41,11 +43,11 @@ public class Remision implements Serializable {
         this.iDRemision = iDRemision;
     }
 
-    public Date getFecha() {
+    public String getFecha() {
         return fecha;
     }
 
-    public void setFecha(Date fecha) {
+    public void setFecha(String fecha) {
         this.fecha = fecha;
     }
 
@@ -64,6 +66,14 @@ public class Remision implements Serializable {
 
     public void setIDMedico(Medico iDMedico) {
         this.iDMedico = iDMedico;
+    }
+    
+    public String getRazon(){
+        return razon;
+    }
+    
+    public void setRazon(String razon){
+        this.razon = razon;
     }
 
     public Paciente getIDPaciente() {
