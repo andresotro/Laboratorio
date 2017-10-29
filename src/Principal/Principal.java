@@ -15,7 +15,7 @@ import javax.swing.JFrame;
  */
 public class Principal {
     public static void main(String[] args){
-        VentanaMedico interfaz = new VentanaMedico();
+        VentanaPrincipal interfaz = new VentanaPrincipal();
         interfaz.setVisible(true);
         interfaz.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         interfaz.pack();
