@@ -10,14 +10,14 @@ CREATE TABLE paciente(IDPaciente INTEGER(11) NOT NULL AUTO_INCREMENT, Nombre VAR
 CREATE TABLE remision(IDRemision INTEGER(11) NOT NULL AUTO_INCREMENT, IDPaciente INTEGER(11) NOT NULL, Fecha DATE NOT NULL, 
                       IDMedico INTEGER(11) NOT NULL, Razon VARCHAR(255) NOT NULL, PRIMARY KEY(IDRemision));
 					  
-CREATE TABLE medico(IDMedico INTEGER(11) NOT NULL AUTO_INCREMENT, Nombre VARCHAR(100) NOT NULL, Apellido VARCHAR(100) NOT NULL, IDGenero INTEGER(11) NOT NULL
+CREATE TABLE medico(IDMedico INTEGER(11) NOT NULL AUTO_INCREMENT, Nombre VARCHAR(100) NOT NULL, Apellido VARCHAR(100) NOT NULL, IDGenero INTEGER(11) NOT NULL,
                     Telefono BIGINT(11) NOT NULL, Nro_Registros INTEGER(11) DEFAULT 0, Usuario VARCHAR(50) NOT NULL UNIQUE, 
 					Password VARCHAR(100) NOT NULL, Identificacion BIGINT(10) NOT NULL UNIQUE, PRIMARY KEY(IDMedico));
 					
 CREATE TABLE examen(IDExamen INTEGER(11) NOT NULL AUTO_INCREMENT, Nombre VARCHAR(100) NOT NULL, Descripcion VARCHAR(255) NOT NULL,
 					PRIMARY KEY(IDExamen));
 					
-CREATE TABLE remision_examen(IDRemision INTEGER(11) NOT NULL AUTO_INCREMENT, IDExamen INTEGER(11) NOT NULL, 
+CREATE TABLE remision_examen(IDRemision INTEGER(11) NOT NULL, IDExamen INTEGER(11) NOT NULL, 
 							 PRIMARY KEY(IDRemision, IDExamen));
 
 CREATE TABLE bacteriologa(IDBacteriologa INTEGER(11) NOT NULL AUTO_INCREMENT, Nombre VARCHAR(100) NOT NULL, Apellido VARCHAR(100) NOT NULL,
@@ -133,7 +133,12 @@ INSERT INTO parametro(IDExamen, ValorMinimo, ValorMaximo, Nombre, Descripcion) V
 	(7, 5.4, 11.7, "Tiroxina T4", "Hormona producida por la tiroides, que juega papel en la energía."),
 	(7, 77, 135, "Triyodotironina T3", "Hormona Tiroidea que juega un papel importante en el metabolismo.");
 	
-	
+CREATE VIEW PacienteExamen AS
+SELECT CONCAT(p.Nombre,' ',p.Apellido) AS NombrePaciente, e.Nombre AS NombreExamen
+FROM remision_examen re
+INNER JOIN Examen e ON re.IDExamen = e.IDExamen
+INNER JOIN Remision r ON re.IDRemision = r.IDRemision
+INNER JOIN Paciente p ON p.IDPaciente = r.IDPaciente;	
 	
 	
 
