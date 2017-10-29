@@ -5,6 +5,7 @@
  */
 package Principal;
 
+import Interfaz.VentanaMedico;
 import Interfaz.VentanaPrincipal;
 import javax.swing.JFrame;
 
@@ -14,7 +15,7 @@ import javax.swing.JFrame;
  */
 public class Principal {
     public static void main(String[] args){
-        VentanaPrincipal interfaz = new VentanaPrincipal();
+        VentanaMedico interfaz = new VentanaMedico();
         interfaz.setVisible(true);
         interfaz.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         interfaz.pack();

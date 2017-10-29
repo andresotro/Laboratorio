@@ -22,7 +22,7 @@ public class ConexionDB {
     public static Connection conectar() {
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/laboratorio", "root", "Prosciutto123");
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/Laboratorio?autoReconnect=true&useSSL=false", "root", "Prosciutto123");
             return connection;
         } catch (Exception ex) {
             Logger.getLogger(ConexionDB.class.getName()).log(Level.SEVERE, null, ex);
