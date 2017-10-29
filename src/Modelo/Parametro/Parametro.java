@@ -31,12 +31,12 @@ public class Parametro implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private Integer iDParametro;
-    private int valorMinimo;
-    private int valorMaximo;
+    private float valorMinimo;
+    private float valorMaximo;
     private String nombre;
     private String descripcion;
     private Collection<Resultado> resultadoCollection;
-    private Examen iDExamen;
+    private int iDExamen;
 
     public Parametro() {
     }
@@ -53,6 +53,15 @@ public class Parametro implements Serializable {
         this.descripcion = descripcion;
     }
 
+    Parametro(int idParametro, int idExamen, float minV, float maxV, String nombre, String descripcion) {
+        this.iDParametro = idParametro;
+        this.iDExamen = idExamen;
+        this.valorMinimo = minV;
+        this.valorMaximo = maxV;
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+    }
+
     public Integer getIDParametro() {
         return iDParametro;
     }
@@ -61,19 +70,19 @@ public class Parametro implements Serializable {
         this.iDParametro = iDParametro;
     }
 
-    public int getValorMinimo() {
+    public float getValorMinimo() {
         return valorMinimo;
     }
 
-    public void setValorMinimo(int valorMinimo) {
+    public void setValorMinimo(float valorMinimo) {
         this.valorMinimo = valorMinimo;
     }
 
-    public int getValorMaximo() {
+    public float getValorMaximo() {
         return valorMaximo;
     }
 
-    public void setValorMaximo(int valorMaximo) {
+    public void setValorMaximo(float valorMaximo) {
         this.valorMaximo = valorMaximo;
     }
 
@@ -102,11 +111,11 @@ public class Parametro implements Serializable {
         this.resultadoCollection = resultadoCollection;
     }
 
-    public Examen getIDExamen() {
+    public int getIDExamen() {
         return iDExamen;
     }
 
-    public void setIDExamen(Examen iDExamen) {
+    public void setIDExamen(int iDExamen) {
         this.iDExamen = iDExamen;
     }
 

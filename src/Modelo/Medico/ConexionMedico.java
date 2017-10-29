@@ -82,4 +82,84 @@ public class ConexionMedico {
         
     }
     
+    public Medico obtenerMedico( int iDMedico ) throws Exception {
+        
+        Medico medico = new Medico();
+        
+        Connection connection;
+        Statement statement;
+        ResultSet resultSet;
+
+        //Establecer la conexi�n
+        connection = ConexionDB.conectar();
+
+        //Crear sentencia SQL y statement
+        String sentenciaSQL = "SELECT * FROM medico WHERE IDMedico="+iDMedico;
+        statement = connection.createStatement();
+
+        //Ejecutar SQL y guardar valores de consulta en resultSet
+        resultSet = statement.executeQuery(sentenciaSQL);
+        
+        while (resultSet.next()) {
+            int id = resultSet.getInt("IDMedico");
+            String nombre = resultSet.getString("Nombre");
+            String apellido = resultSet.getString("Apellido");
+            long identificacion = resultSet.getLong("Identificacion");
+            long telefono = resultSet.getLong("Telefono");
+            int noRegistro = resultSet.getInt("Nro_Registros");
+            String usuario = resultSet.getString("Usuario");
+            String contraseña = resultSet.getString("Password");
+            int idGenero = resultSet.getInt("IDGenero");
+
+            medico = new Medico(id, nombre, apellido, identificacion, telefono, noRegistro, usuario, contraseña, idGenero);
+        }
+        
+        statement.close();
+        resultSet.close();
+        connection.close();
+        
+        return medico;
+        
+    }
+    
+    public Medico obtenerMedicoRegistrado() throws SQLException{
+        
+        Medico medico = new Medico();
+        
+        Connection connection;
+        Statement statement;
+        ResultSet resultSet;
+
+        //Establecer la conexi�n
+        connection = ConexionDB.conectar();
+
+        //Crear sentencia SQL y statement
+        String sentenciaSQL = "SELECT * FROM medico ORDER BY IDMedico DESC LIMIT 1";
+        statement = connection.createStatement();
+
+        //Ejecutar SQL y guardar valores de consulta en resultSet
+        resultSet = statement.executeQuery(sentenciaSQL);
+        
+        while (resultSet.next()) {
+            int id = resultSet.getInt("IDMedico");
+            String nombre = resultSet.getString("Nombre");
+            String apellido = resultSet.getString("Apellido");
+            long identificacion = resultSet.getLong("Identificacion");
+            long telefono = resultSet.getLong("Telefono");
+            int noRegistro = resultSet.getInt("Nro_Registros");
+            String usuario = resultSet.getString("Usuario");
+            String contraseña = resultSet.getString("Password");
+            int idGenero = resultSet.getInt("IDGenero");
+
+            medico = new Medico(id, nombre, apellido, identificacion, telefono, noRegistro, usuario, contraseña, idGenero);
+        }
+        
+        statement.close();
+        resultSet.close();
+        connection.close();
+        
+        return medico;
+        
+    }
+    
 }

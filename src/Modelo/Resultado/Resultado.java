@@ -15,11 +15,11 @@ import java.util.Date;
 public class Resultado implements Serializable {
 
     private Integer iDResultado;
-    private int valor;
+    private float valor;
     private Date fechaRealizacion;
-    private Bacteriologa iDBacteriologa;
-    private Paciente iDPaciente;
-    private Parametro iDParametro;
+    private int iDBacteriologa;
+    private int iDPaciente;
+    private int iDParametro;
 
     public Resultado() {
     }
@@ -34,6 +34,15 @@ public class Resultado implements Serializable {
         this.fechaRealizacion = fechaRealizacion;
     }
 
+    Resultado(int idResultado, int idParametro, int idPaciente, float valor, int idBacteriologa, Date fecha) {
+        this.iDResultado = idResultado;
+        this.iDParametro = idParametro;
+        this.iDPaciente = idPaciente;
+        this.valor = valor;
+        this.iDBacteriologa = idBacteriologa;
+        this.fechaRealizacion = fecha;
+    }
+
     public Integer getIDResultado() {
         return iDResultado;
     }
@@ -42,11 +51,11 @@ public class Resultado implements Serializable {
         this.iDResultado = iDResultado;
     }
 
-    public int getValor() {
+    public float getValor() {
         return valor;
     }
 
-    public void setValor(int valor) {
+    public void setValor(float valor) {
         this.valor = valor;
     }
 
@@ -58,27 +67,27 @@ public class Resultado implements Serializable {
         this.fechaRealizacion = fechaRealizacion;
     }
 
-    public Bacteriologa getIDBacteriologa() {
+    public int getIDBacteriologa() {
         return iDBacteriologa;
     }
 
-    public void setIDBacteriologa(Bacteriologa iDBacteriologa) {
+    public void setIDBacteriologa(int iDBacteriologa) {
         this.iDBacteriologa = iDBacteriologa;
     }
 
-    public Paciente getIDPaciente() {
+    public int getIDPaciente() {
         return iDPaciente;
     }
 
-    public void setIDPaciente(Paciente iDPaciente) {
+    public void setIDPaciente(int iDPaciente) {
         this.iDPaciente = iDPaciente;
     }
 
-    public Parametro getIDParametro() {
+    public int getIDParametro() {
         return iDParametro;
     }
 
-    public void setIDParametro(Parametro iDParametro) {
+    public void setIDParametro(int iDParametro) {
         this.iDParametro = iDParametro;
     }
 

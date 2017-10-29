@@ -72,7 +72,7 @@ public class SeleccionRemision extends javax.swing.JFrame {
         jButton1.setText("Continuar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jButton1ActionPerformed(evt, bac);
             }
         });
 
@@ -117,14 +117,16 @@ public class SeleccionRemision extends javax.swing.JFrame {
         pack();
     }// </editor-fold>   
 
-    private void jButton1ActionPerformed(ActionEvent evt) {
-        if(Remision.equals("")){
-            JOptionPane.showMessageDialog(rootPane, "Ingrese el examen a completar");
-        }
-        else{
+    private void jButton1ActionPerformed(ActionEvent evt, Bacteriologa bac){
+        try{
+            System.out.println(bac.getNombre());
+            String remision = Remision.getSelectedItem().toString();
             this.setVisible(false);
-            VentanaBacteriologa d = new VentanaBacteriologa();
+            VentanaBacteriologa d = new VentanaBacteriologa(remision, bac);
+            d.setLocationRelativeTo(null);
             d.setVisible(true);
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(rootPane, "Ingrese el examen a completar");
         }
     }
 

@@ -88,8 +88,10 @@ public class ConexionExaRem {
         while (resultSet.next()) {
             String nombrePaciente = resultSet.getString("NombrePaciente");
             String nombreExamen = resultSet.getString("NombreExamen");
+            String idRemision = resultSet.getString("IDRemision");
+            String idExamen = resultSet.getString("IDExamen");
 
-            nombres.add(nombreExamen+" de "+ nombrePaciente);
+            nombres.add(idRemision+idExamen +" - "+nombreExamen+" - "+ nombrePaciente);
         }
 
         statement.close();

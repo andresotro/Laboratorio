@@ -27,16 +27,8 @@ public class Bacteriologa implements Serializable {
         this.iDBacteriologa = iDBacteriologa;
     }
 
-    public Bacteriologa(Integer iDBacteriologa, String nombre, String apellido, String usuario, String password, long identificacion) {
-        this.iDBacteriologa = iDBacteriologa;
-        this.nombre = nombre;
-        this.apellido = apellido;
-        this.usuario = usuario;
-        this.password = password;
-        this.identificacion = identificacion;
-    }
-
     public Bacteriologa(int id, String nombre, String apellido, long identificacion, String usuario, String contraseña) {
+        this.iDBacteriologa = id;
         this.nombre = nombre;
         this.apellido = apellido;
         this.usuario = usuario;

@@ -5,6 +5,24 @@
  */
 package Interfaz;
 
+import Modelo.Bacteriologa.Bacteriologa;
+import Modelo.Examen.ConexionExamen;
+import Modelo.Examen.Examen;
+import Modelo.Medico.ConexionMedico;
+import Modelo.Parametro.ConexionParametro;
+import Modelo.Parametro.Parametro;
+import Modelo.Remision.ConexionRemision;
+import Modelo.Remision.Remision;
+import Modelo.Resultado.ConexionResultado;
+import Modelo.Resultado.Resultado;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+import java.util.Locale;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author USUARIO
@@ -13,9 +31,11 @@ public class VentanaBacteriologa extends javax.swing.JFrame {
 
     /**
      * Creates new form VentanaBacteriologa
+     * @param remision
+     * @param bac
      */
-    public VentanaBacteriologa() {
-        initComponents();
+    public VentanaBacteriologa(String remision, Bacteriologa bac) {
+        initComponents(remision, bac);
     }
 
     /**
@@ -25,7 +45,7 @@ public class VentanaBacteriologa extends javax.swing.JFrame {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
-    private void initComponents() {
+    private void initComponents(String remision, Bacteriologa bac) {
 
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
@@ -46,30 +66,7 @@ public class VentanaBacteriologa extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Registro de Parámetros");
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Parametro", "Mínimo", "Máximo", "Valor"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Float.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, false, false, true
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jScrollPane2.setViewportView(jTable2);
+        setModelo(remision);
 
         jPanel1.setBackground(new java.awt.Color(153, 153, 153));
 
@@ -155,11 +152,16 @@ public class VentanaBacteriologa extends javax.swing.JFrame {
         Cancelar.setText("Cancelar");
         Cancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CancelarActionPerformed(evt);
+                CancelarActionPerformed(evt, bac);
             }
         });
 
         Registrar.setText("Registrar");
+        Registrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RegistrarActionPerformed(evt, bac, remision);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -195,11 +197,141 @@ public class VentanaBacteriologa extends javax.swing.JFrame {
         );
 
         pack();
-    }// </editor-fold>                        
+    }// </editor-fold>      
 
-    private void CancelarActionPerformed(java.awt.event.ActionEvent evt) {                                         
-        // TODO add your handling code here:
-    }                                        
+    private void setModelo(String remision) {
+
+        try {
+
+            ConexionRemision cr = new ConexionRemision();
+            ConexionExamen ce = new ConexionExamen();
+            ConexionMedico cm = new ConexionMedico();
+            ConexionParametro cp = new ConexionParametro();
+            String[] partes = remision.split(" - ");
+            String[] iDs = partes[0].split("");
+
+            Remision r = cr.obtenerRemision(Integer.parseInt(iDs[0]));
+            Examen e = ce.obtenerExamen(Integer.parseInt(iDs[1]));
+            
+            String dr = "";
+            if(cm.obtenerMedico(r.getIDMedico()).getIDGenero() == 1){
+                dr = "Dr.";
+            }else{
+                dr= "Dra.";
+            }
+            
+            List<Parametro> parametros = cp.obtenerParametrosExamen(e.getIDExamen());
+            String[][] parametroT = new String[parametros.size()][4];
+            
+            for( int i = 0 ; i < parametros.size() ; i++  ){
+                parametroT[i][0] = parametros.get(i).getNombre();
+            }
+            for (int i = 0; i < parametros.size(); i++) {
+                parametroT[i][1] = Float.toString(parametros.get(i).getValorMinimo());
+            }
+            for (int i = 0; i < parametros.size(); i++) {
+                parametroT[i][2] = Float.toString(parametros.get(i).getValorMaximo());
+            }
+            for (int i = 0; i < parametros.size(); i++) {
+                parametroT[i][3] = null;
+            }
+            
+            
+            Examen.setText(partes[1]);
+            Paciente.setText(partes[2]);
+            Medico.setText(dr+" "+cm.obtenerMedico(r.getIDMedico()).getNombre()+" "+cm.obtenerMedico(r.getIDMedico()).getApellido());
+            SimpleDateFormat formatDate = new SimpleDateFormat("yyyy-MM-dd");
+            Fecha.setText(formatDate.format(r.getFecha()));
+
+            jTable2.setModel(new javax.swing.table.DefaultTableModel(
+                    parametroT,
+                    new String[]{
+                        "Parametro", "Valor Mínimo", "Valor Máximo", "Valor"
+                    }
+            ) {
+                Class[] types = new Class[]{
+                    java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Float.class
+                };
+                boolean[] canEdit = new boolean[]{
+                    false, false, false, true
+                };
+
+                public Class getColumnClass(int columnIndex) {
+                    return types[columnIndex];
+                }
+
+                public boolean isCellEditable(int rowIndex, int columnIndex) {
+                    return canEdit[columnIndex];
+                }
+            });
+            jScrollPane2.setViewportView(jTable2);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void CancelarActionPerformed(java.awt.event.ActionEvent evt, Bacteriologa bac) {                                         
+        
+        SeleccionRemision sr = new SeleccionRemision(bac);
+        sr.setLocationRelativeTo(null);
+        sr.setVisible(true);
+        this.dispose();
+        
+    }   
+    
+    private void RegistrarActionPerformed(java.awt.event.ActionEvent evt, Bacteriologa bac, String remision) { 
+        try {
+            Boolean empty = false;
+            
+            ConexionRemision cr = new ConexionRemision();
+            ConexionExamen ce = new ConexionExamen();
+            ConexionParametro cp = new ConexionParametro();
+            ConexionResultado cs = new ConexionResultado();
+            System.out.println(bac.getIDBacteriologa());
+            
+            String[] partes = remision.split(" - ");
+            String[] iDs = partes[0].split("");
+            
+            Examen e = ce.obtenerExamen(Integer.parseInt(iDs[1]));
+            Remision r = cr.obtenerRemision(Integer.parseInt(iDs[0]));
+            
+            List<Parametro> parametros = cp.obtenerParametrosExamen(e.getIDExamen());
+            
+            for (int i = 0; i < parametros.size(); i++){
+                if( jTable2.getValueAt(i, 3) == null ){
+                    empty = true;
+                    JOptionPane.showMessageDialog(null, "Por favor llena todos los campos");
+                    break;
+                }
+            }
+            if( empty == false ){
+                for (int i = 0; i < parametros.size(); i++) {
+                    Resultado resultado = new Resultado();
+                    resultado.setIDParametro(parametros.get(i).getIDParametro());
+                    resultado.setIDPaciente(r.getIDPaciente());
+                    resultado.setValor(Float.parseFloat(jTable2.getValueAt(i, 3).toString()));
+                    resultado.setIDBacteriologa(bac.getIDBacteriologa());
+                    // <editor-fold defaultstate="collapsed" desc="Pasos para obtener fecha date2">
+                    Calendar cal = Calendar.getInstance();
+                    Date date = cal.getTime();
+                    DateFormat formato = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
+                    String fecha = formato.format(date);
+                    Date date2 = formato.parse(fecha);
+                    // </editor-fold>
+                    resultado.setFechaRealizacion(date2);
+                    cs.insertarResultado(resultado);
+                }
+                JOptionPane.showMessageDialog(null, "¡Registro de Parámetros completado de manera exitosa!");
+                SeleccionRemision sr = new SeleccionRemision(bac);
+                sr.setLocationRelativeTo(null);
+                sr.setVisible(true);
+                this.dispose();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }   
 
     // Variables declaration - do not modify                     
     private javax.swing.JButton Cancelar;
@@ -218,4 +350,5 @@ public class VentanaBacteriologa extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable2;
     // End of variables declaration                   
+
 }

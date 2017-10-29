@@ -123,4 +123,40 @@ public class ConexionRemision {
         return remision;
         
     }
+    
+        public Remision obtenerRemision( int iDRemision ) throws Exception{
+        
+        Remision remision = new Remision();
+
+        Connection connection;
+        PreparedStatement preparedStatement;
+        ResultSet resultSet;
+
+        //Establecer la conexi�n
+        connection = ConexionDB.conectar();
+
+        //Crear sentencia SQL y statement
+        String sentenciaSQL = "SELECT * FROM remision WHERE IDRemision="+iDRemision;
+        preparedStatement = connection.prepareStatement(sentenciaSQL);
+
+        //Ejecutar SQL y guardar valores de consulta en resultSet
+        resultSet = preparedStatement.executeQuery();
+        
+        while (resultSet.next()) {
+            int id = resultSet.getInt("IDRemision");
+            int idPaciente = resultSet.getInt("idPaciente");
+            Date fecha = resultSet.getDate("Fecha");
+            int idMedico = resultSet.getInt("IDMedico");
+            String razon = resultSet.getString("Razon");
+            remision = new Remision(id, idPaciente, fecha, idMedico, razon);
+        }
+        
+        preparedStatement.close();
+        resultSet.close();
+        connection.close();
+        
+        return remision;
+        
+    }
+    
 }
