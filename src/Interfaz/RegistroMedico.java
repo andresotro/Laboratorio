@@ -304,8 +304,16 @@ public class RegistroMedico extends javax.swing.JFrame {
                 m.setIdentificacion(Long.parseLong(identificacion));
                 m.setUsuario(usuario);
                 m.setPassword(password);
+                m.setTelefono(Long.parseLong(telefono));
                 m.setGeneroString(genero.toString());
+                m.setNroRegistros(Integer.parseInt(noRegistro));
                 c.insertarMedico(m);
+                
+                JOptionPane.showMessageDialog(null, "¡Registro Exitoso!");
+                VentanaMedico vm = new VentanaMedico(m);
+                vm.setLocationRelativeTo(null);
+                vm.setVisible(true);
+                this.dispose();
 
             } catch (Exception e) {
                 e.printStackTrace();

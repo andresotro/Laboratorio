@@ -86,5 +86,44 @@ public class ConexionPaciente {
         connection.close();
         
     }
+    
+    public Paciente obtenerPaciente( int idPaciente ) throws Exception{
+        Connection connection;
+        Statement statement;
+        ResultSet resultSet;
+
+        Paciente patient = new Paciente();
+        
+        //Establecer la conexi�n
+        connection = ConexionDB.conectar();
+
+        //Crear sentencia SQL y statement
+        String sentenciaSQL = "SELECT * FROM paciente WHERE IDPaciente="+idPaciente;
+        statement = connection.createStatement();
+
+        //Ejecutar SQL y guardar valores de consulta en resultSet
+        resultSet = statement.executeQuery(sentenciaSQL);
+        
+        while (resultSet.next()) {
+            int id = resultSet.getInt("IDPaciente");
+            String nombre = resultSet.getString("Nombre");
+            String apellido = resultSet.getString("Apellido");
+            long identificacion = resultSet.getLong("Identificacion");
+            int edad = resultSet.getInt("Edad");
+            String direccion = resultSet.getString("Direccion_casa");
+            int idCiudad = resultSet.getInt("IDCiudad");
+            String usuario = resultSet.getString("Usuario");
+            String contraseña = resultSet.getString("Password");
+            int idGenero = resultSet.getInt("IDGenero");
+
+            patient = new Paciente(id, nombre, apellido, identificacion, edad, direccion, idCiudad, usuario, contraseña, idGenero);
+        }
+        
+        statement.close();
+        resultSet.close();
+        connection.close();
+        
+        return patient;   
+    }
                
 }

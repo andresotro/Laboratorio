@@ -5,6 +5,12 @@
  */
 package Interfaz;
 
+import Modelo.Bacteriologa.Bacteriologa;
+import Modelo.Bacteriologa.ConexionBacteriologa;
+import Modelo.Medico.ConexionMedico;
+import Modelo.Medico.Medico;
+import Modelo.Paciente.ConexionPaciente;
+import Modelo.Paciente.Paciente;
 import java.util.Enumeration;
 import javax.swing.AbstractButton;
 import javax.swing.JOptionPane;
@@ -117,11 +123,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jRadioButton4.setBackground(new java.awt.Color(255, 255, 255));
         tipoPersona.add(jRadioButton4);
         jRadioButton4.setText("Bacterióloga");
-        jRadioButton4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton4ActionPerformed(evt);
-            }
-        });
 
         jLabel11.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         jLabel11.setText("Elige el tipo de persona");
@@ -278,13 +279,32 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         }
     }                                        
 
-    private void jRadioButton4ActionPerformed(java.awt.event.ActionEvent evt) {                                              
-        // TODO add your handling code here:
-    }                                             
-
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {                                         
-        // TODO add your handling code here:
-    }                                        
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {
+        String seleccion = obtenerSeleccionado();
+        String usuario = this.usuario.getText();
+        String password = new String(contraseña.getPassword());
+        if (usuario == null || password == null) {
+            JOptionPane.showMessageDialog(null, "Por favor llena ambos campos");
+        } else {
+            try {
+                switch (seleccion) {
+                    case "Paciente":
+                        validarPaciente(usuario, password);
+                        break;
+                    case "Médico":
+                        validarMedico(usuario, password);
+                        break;
+                    case "Bacterióloga":
+                        validarBacteriologa(usuario, password);
+                        break;
+                    default:
+                        break;
+                }
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(null, "Por favor elige un tipo de persona para iniciar sesión");
+            }
+        }
+    }                                     
 
     private String obtenerSeleccionado(){
         String seleccionado = null;
@@ -295,6 +315,70 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             }
         }
         return seleccionado;
+    }
+    
+    private void validarPaciente(String usuario, String password) throws Exception {
+        Paciente pac = new Paciente();
+        Boolean encontrado = false;
+        ConexionPaciente p = new ConexionPaciente();
+        for (Paciente paciente : p.obtenerPacientes()) {
+            if (paciente.getUsuario().equals(usuario) && paciente.getPassword().equals(password)) {
+                pac = paciente;
+                encontrado = true;
+//                VentanaPaciente v = new VentanaPaciente(pac);
+//                v.setLocationRelativeTo(null);
+//                v.setVisible(true);
+//                this.setVisible(false);
+                break;
+            }
+        }
+        if(encontrado == false){
+            JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrectos.");
+        }
+    }
+    
+    private void validarMedico(String usuario, String password) {
+        try {
+            Medico med = new Medico();
+            Boolean encontrado = false;
+            ConexionMedico m = new ConexionMedico();
+            for (Medico medico : m.obtenerMedicos()) {
+                if (medico.getUsuario().equals(usuario) && medico.getPassword().equals(password)) {
+                    med = medico;
+                    encontrado = true;
+                    VentanaMedico v = new VentanaMedico(med);
+                    v.setLocationRelativeTo(null);
+                    v.setVisible(true);
+                    this.setVisible(false);
+                    break;
+                }
+            }
+            if (encontrado == false) {
+                JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrectos.");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+    private void validarBacteriologa(String usuario, String password) throws Exception{
+        Bacteriologa bac = new Bacteriologa();
+        Boolean encontrado = false;
+        ConexionBacteriologa b = new ConexionBacteriologa();
+        for (Bacteriologa bacteriologa : b.obtenerBacteriologas()){
+            if(bacteriologa.getUsuario().equals(usuario) && bacteriologa.getPassword().equals(password)) {
+                bac = bacteriologa;
+                encontrado = true;
+                SeleccionRemision v = new SeleccionRemision(bac);
+                v.setLocationRelativeTo(null);
+                v.setVisible(true);
+                this.setVisible(false);
+                break;
+            }
+        }
+        if(encontrado == false){
+            JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrectos.");
+        }
     }
 
     // Variables declaration - do not modify                     

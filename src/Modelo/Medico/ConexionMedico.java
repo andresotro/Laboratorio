@@ -27,7 +27,7 @@ public class ConexionMedico {
         connection = ConexionDB.conectar();
 
         //Crear sentencia SQL y statement
-        String sentenciaSQL = "SELECT * FROM paciente";
+        String sentenciaSQL = "SELECT * FROM medico";
         statement = connection.createStatement();
 
         //Ejecutar SQL y guardar valores de consulta en resultSet

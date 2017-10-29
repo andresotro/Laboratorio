@@ -5,22 +5,16 @@
  */
 package Modelo.Remision;
 
-import Modelo.Paciente.Paciente;
-import Modelo.Medico.Medico;
-import Modelo.Examen.Examen;
 import java.io.Serializable;
-import java.util.Collection;
-import java.sql.Date;
-import javax.xml.bind.annotation.XmlTransient;
+import java.util.Date;
 
 public class Remision implements Serializable {
 
     private Integer iDRemision;
-    private String fecha;
-    private Collection<Examen> examenCollection;
+    private Date fecha;
     private String razon;
-    private Medico iDMedico;
-    private Paciente iDPaciente;
+    private int iDMedico;
+    private int iDPaciente;
 
     public Remision() {
     }
@@ -29,9 +23,17 @@ public class Remision implements Serializable {
         this.iDRemision = iDRemision;
     }
 
-    public Remision(Integer iDRemision, String fecha, String razon) {
+    public Remision(Integer iDRemision, Date fecha, String razon) {
         this.iDRemision = iDRemision;
         this.fecha = fecha;
+        this.razon = razon;
+    }
+
+    Remision(int id, int idPaciente, Date fecha, int idMedico, String razon) {
+        this.iDRemision = id;
+        this.iDPaciente = idPaciente;
+        this.fecha = fecha;
+        this.iDMedico = idMedico;
         this.razon = razon;
     }
 
@@ -43,28 +45,19 @@ public class Remision implements Serializable {
         this.iDRemision = iDRemision;
     }
 
-    public String getFecha() {
+    public Date getFecha() {
         return fecha;
     }
 
-    public void setFecha(String fecha) {
+    public void setFecha(Date fecha) {
         this.fecha = fecha;
     }
 
-    @XmlTransient
-    public Collection<Examen> getExamenCollection() {
-        return examenCollection;
-    }
-
-    public void setExamenCollection(Collection<Examen> examenCollection) {
-        this.examenCollection = examenCollection;
-    }
-
-    public Medico getIDMedico() {
+    public int getIDMedico() {
         return iDMedico;
     }
 
-    public void setIDMedico(Medico iDMedico) {
+    public void setIDMedico(int iDMedico) {
         this.iDMedico = iDMedico;
     }
     
@@ -76,11 +69,11 @@ public class Remision implements Serializable {
         this.razon = razon;
     }
 
-    public Paciente getIDPaciente() {
+    public int getIDPaciente() {
         return iDPaciente;
     }
 
-    public void setIDPaciente(Paciente iDPaciente) {
+    public void setIDPaciente(int iDPaciente) {
         this.iDPaciente = iDPaciente;
     }
 

@@ -7,21 +7,28 @@ package Interfaz;
 
 import Modelo.Examen.ConexionExamen;
 import Modelo.Examen.Examen;
+import Modelo.ExamenRemision.ConexionExaRem;
+import Modelo.ExamenRemision.ExamenRemision;
+import Modelo.Medico.Medico;
 import Modelo.Paciente.ConexionPaciente;
 import Modelo.Paciente.Paciente;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
+import Modelo.Remision.ConexionRemision;
+import Modelo.Remision.Remision;
+import java.text.*;
+import java.util.*;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
 
 public class VentanaMedico extends javax.swing.JFrame{
-    public VentanaMedico() {
-        initComponents();
+    
+    public VentanaMedico(Medico m) {
+        initComponents(m);
     }
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
-    private void initComponents() {
+    private void initComponents(Medico m) {
+
         jPanel4 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
@@ -31,10 +38,11 @@ public class VentanaMedico extends javax.swing.JFrame{
         jLabel1 = new javax.swing.JLabel();
         ExamenP = new javax.swing.JComboBox<>();
         jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        Razon = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -45,7 +53,11 @@ public class VentanaMedico extends javax.swing.JFrame{
 
         jLabel11.setFont(new java.awt.Font("Verdana", 0, 36)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel11.setText("¡Bienvenido/a Doctor/a!");
+        if(m.getIDGenero() == 1){
+            jLabel11.setText("¡Bienvenido Doctor!");
+        }else{
+            jLabel11.setText("¡Bienvenida Doctora!");
+        }
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
@@ -89,44 +101,30 @@ public class VentanaMedico extends javax.swing.JFrame{
                 .addContainerGap(35, Short.MAX_VALUE))
         );
 
-        PacienteP.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                PacientePActionPerformed(evt);
-            }
-        });
-
         jLabel1.setText("Nombre Paciente");
 
-        ExamenP.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ExamenPActionPerformed(evt);
-            }
-        });
 
         jLabel2.setText("Tipo de Examen");
-
-        jTextField1.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
-            }
-        });
 
         jLabel3.setText("Razón del Examen");
 
         jButton1.setText("Remitir");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jButton1ActionPerformed(evt, m);
             }
         });
 
-        jButton2.setText("Cancelar");
+        jButton2.setText("Salir");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
             }
         });
+
+        Razon.setColumns(20);
+        Razon.setRows(5);
+        jScrollPane1.setViewportView(Razon);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -143,9 +141,9 @@ public class VentanaMedico extends javax.swing.JFrame{
                     .addComponent(jLabel3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jTextField1)
                     .addComponent(ExamenP, 0, 203, Short.MAX_VALUE)
-                    .addComponent(PacienteP, 0, 203, Short.MAX_VALUE))
+                    .addComponent(PacienteP, 0, 203, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1))
                 .addGap(61, 61, 61))
             .addGroup(layout.createSequentialGroup()
                 .addGap(122, 122, 122)
@@ -169,8 +167,8 @@ public class VentanaMedico extends javax.swing.JFrame{
                 .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(28, 28, 28)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(33, 33, 33)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jButton2))
@@ -181,27 +179,81 @@ public class VentanaMedico extends javax.swing.JFrame{
         setModeloExamen();
         
         pack();
-    }// </editor-fold>                        
+    }// </editor-fold>                                                           
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {                                            
-        
-    }                                           
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt, Medico m){                                         
+        ConexionRemision cr = new ConexionRemision();
+        ConexionExaRem er = new ConexionExaRem();
+        Object paciente = PacienteP.getSelectedItem();
+        Object examen = ExamenP.getSelectedItem();
+        String razon = Razon.getText();
+        if( paciente == null || examen == null || razon.equals("") ){
+            JOptionPane.showMessageDialog(null, "Por favor llena toda la información solicitada");
+        } else {
+            try {
+                Remision r = new Remision();
+                r.setIDPaciente(obtenerIDPaciente(paciente.toString()));
+                // <editor-fold defaultstate="collapsed" desc="Pasos para obtener fecha date2">
+                Calendar cal = Calendar.getInstance();
+                Date date = cal.getTime();
+                DateFormat formato = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
+                String fecha = formato.format(date);
+                Date date2 = formato.parse(fecha);
+                // </editor-fold>
+                r.setFecha(date2);
+                r.setIDMedico(m.getIDMedico());
+                r.setRazon(razon);
+                cr.insertarRemision(r);
+                
+                JOptionPane.showMessageDialog(null, "¡Remisión Exitosa!");
+                VentanaMedico v = new VentanaMedico(m);
+                v.setLocationRelativeTo(null);
+                v.setVisible(true);
+                this.dispose();
+                
+                ExamenRemision xr = new ExamenRemision();
+                xr.setiDExamen(obtenerIDExamen(examen.toString()));
+                xr.setiDRemision(cr.obtenerRemision(r).getIDRemision());
+                er.insertarExaRem(xr);
+                
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {                                         
-        // TODO add your handling code here:
+        }              
     }                                        
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {                                         
-        // TODO add your handling code here:
-    }                                        
-
-    private void PacientePActionPerformed(java.awt.event.ActionEvent evt) {                                          
-        // TODO add your handling code here:
-    }                                         
-
-    private void ExamenPActionPerformed(java.awt.event.ActionEvent evt) {                                        
-        // TODO add your handling code here:
-    }                                       
+        VentanaPrincipal v = new VentanaPrincipal();
+        v.setLocationRelativeTo(null);
+        v.setVisible(true);
+        this.dispose();
+    }               
+    
+    private int obtenerIDExamen(String examen) throws Exception{
+        ConexionExamen ce = new ConexionExamen();
+        Examen ex = new Examen();
+        for(Examen exam : ce.obtenerExamenes()){
+            if(exam.getNombre().equals(examen)){
+                ex = exam;
+                break;
+            }
+        }
+        return ex.getIDExamen();
+    }
+    
+    private int obtenerIDPaciente(String paciente) throws Exception{
+        ConexionPaciente cp = new ConexionPaciente();
+        Paciente pa = new Paciente();
+        for(Paciente patient : cp.obtenerPacientes()){
+            String nombres = patient.getNombre()+" "+patient.getApellido();
+            if(nombres.equals(paciente)){
+                pa = patient;
+                break;
+            }
+        }
+        return pa.getIDPaciente();
+    }
 
     @SuppressWarnings("CallToPrintStackTrace")
     private void setModeloPaciente(){
@@ -246,6 +298,7 @@ public class VentanaMedico extends javax.swing.JFrame{
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JTextField jTextField1;
-    // End of variables declaration                   
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextArea Razon;
+    // End of variables declaration                    
 }
