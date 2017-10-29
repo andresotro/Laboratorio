@@ -133,7 +133,12 @@ INSERT INTO parametro(IDExamen, ValorMinimo, ValorMaximo, Nombre, Descripcion) V
 	(7, 5.4, 11.7, "Tiroxina T4", "Hormona producida por la tiroides, que juega papel en la energía."),
 	(7, 77, 135, "Triyodotironina T3", "Hormona Tiroidea que juega un papel importante en el metabolismo.");
 	
-	
+CREATE VIEW PacienteExamen AS
+SELECT CONCAT(p.Nombre,' ',p.Apellido) AS NombrePaciente, e.Nombre AS NombreExamen
+FROM remision_examen re
+INNER JOIN Examen e ON re.IDExamen = e.IDExamen
+INNER JOIN Remision r ON re.IDRemision = r.IDRemision
+INNER JOIN Paciente p ON p.IDPaciente = r.IDPaciente;	
 	
 	
 
