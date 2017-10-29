@@ -10,56 +10,15 @@ import Modelo.Paciente.Paciente;
 import Modelo.Bacteriologa.Bacteriologa;
 import java.io.Serializable;
 import java.util.Date;
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.xml.bind.annotation.XmlRootElement;
 
-/**
- *
- * @author USUARIO
- */
-@Entity
-@Table(name = "resultado")
-@XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "Resultado.findAll", query = "SELECT r FROM Resultado r")
-    , @NamedQuery(name = "Resultado.findByIDResultado", query = "SELECT r FROM Resultado r WHERE r.iDResultado = :iDResultado")
-    , @NamedQuery(name = "Resultado.findByValor", query = "SELECT r FROM Resultado r WHERE r.valor = :valor")
-    , @NamedQuery(name = "Resultado.findByFechaRealizacion", query = "SELECT r FROM Resultado r WHERE r.fechaRealizacion = :fechaRealizacion")})
+
 public class Resultado implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "IDResultado")
     private Integer iDResultado;
-    @Basic(optional = false)
-    @Column(name = "Valor")
     private int valor;
-    @Basic(optional = false)
-    @Column(name = "Fecha_Realizacion")
-    @Temporal(TemporalType.DATE)
     private Date fechaRealizacion;
-    @JoinColumn(name = "IDBacteriologa", referencedColumnName = "IDBacteriologa")
-    @ManyToOne(optional = false)
     private Bacteriologa iDBacteriologa;
-    @JoinColumn(name = "IDPaciente", referencedColumnName = "IDPaciente")
-    @ManyToOne(optional = false)
     private Paciente iDPaciente;
-    @JoinColumn(name = "IDParametro", referencedColumnName = "IDParametro")
-    @ManyToOne(optional = false)
     private Parametro iDParametro;
 
     public Resultado() {

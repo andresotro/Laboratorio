@@ -21,29 +21,12 @@ import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
-/**
- *
- * @author USUARIO
- */
-@Entity
-@Table(name = "ciudad")
-@XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "Ciudad.findAll", query = "SELECT c FROM Ciudad c")
-    , @NamedQuery(name = "Ciudad.findByIDCiudad", query = "SELECT c FROM Ciudad c WHERE c.iDCiudad = :iDCiudad")
-    , @NamedQuery(name = "Ciudad.findByNombre", query = "SELECT c FROM Ciudad c WHERE c.nombre = :nombre")})
+
 public class Ciudad implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "IDCiudad")
     private Integer iDCiudad;
-    @Basic(optional = false)
-    @Column(name = "Nombre")
     private String nombre;
-    @OneToMany(mappedBy = "iDCiudad")
     private Collection<Paciente> pacienteCollection;
 
     public Ciudad() {

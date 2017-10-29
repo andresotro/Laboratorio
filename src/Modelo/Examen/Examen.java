@@ -9,54 +9,16 @@ import Modelo.Parametro.Parametro;
 import Modelo.Remision.Remision;
 import java.io.Serializable;
 import java.util.Collection;
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
-/**
- *
- * @author USUARIO
- */
-@Entity
-@Table(name = "examen")
-@XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "Examen.findAll", query = "SELECT e FROM Examen e")
-    , @NamedQuery(name = "Examen.findByIDExamen", query = "SELECT e FROM Examen e WHERE e.iDExamen = :iDExamen")
-    , @NamedQuery(name = "Examen.findByNombre", query = "SELECT e FROM Examen e WHERE e.nombre = :nombre")
-    , @NamedQuery(name = "Examen.findByDescripcion", query = "SELECT e FROM Examen e WHERE e.descripcion = :descripcion")})
+
 public class Examen implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "IDExamen")
     private Integer iDExamen;
-    @Basic(optional = false)
-    @Column(name = "Nombre")
     private String nombre;
-    @Basic(optional = false)
-    @Column(name = "Descripcion")
     private String descripcion;
-    @JoinTable(name = "remision_examen", joinColumns = {
-        @JoinColumn(name = "IDExamen", referencedColumnName = "IDExamen")}, inverseJoinColumns = {
-        @JoinColumn(name = "IDRemision", referencedColumnName = "IDRemision")})
-    @ManyToMany
     private Collection<Remision> remisionCollection;
-    @OneToMany(mappedBy = "iDExamen")
     private Collection<Parametro> parametroCollection;
 
     public Examen() {

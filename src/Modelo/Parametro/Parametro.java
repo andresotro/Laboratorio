@@ -25,44 +25,17 @@ import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
-/**
- *
- * @author USUARIO
- */
-@Entity
-@Table(name = "parametro")
-@XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "Parametro.findAll", query = "SELECT p FROM Parametro p")
-    , @NamedQuery(name = "Parametro.findByIDParametro", query = "SELECT p FROM Parametro p WHERE p.iDParametro = :iDParametro")
-    , @NamedQuery(name = "Parametro.findByValorMinimo", query = "SELECT p FROM Parametro p WHERE p.valorMinimo = :valorMinimo")
-    , @NamedQuery(name = "Parametro.findByValorMaximo", query = "SELECT p FROM Parametro p WHERE p.valorMaximo = :valorMaximo")
-    , @NamedQuery(name = "Parametro.findByNombre", query = "SELECT p FROM Parametro p WHERE p.nombre = :nombre")
-    , @NamedQuery(name = "Parametro.findByDescripcion", query = "SELECT p FROM Parametro p WHERE p.descripcion = :descripcion")})
+
 public class Parametro implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "IDParametro")
+
     private Integer iDParametro;
-    @Basic(optional = false)
-    @Column(name = "ValorMinimo")
     private int valorMinimo;
-    @Basic(optional = false)
-    @Column(name = "ValorMaximo")
     private int valorMaximo;
-    @Basic(optional = false)
-    @Column(name = "Nombre")
     private String nombre;
-    @Basic(optional = false)
-    @Column(name = "Descripcion")
     private String descripcion;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "iDParametro")
     private Collection<Resultado> resultadoCollection;
-    @JoinColumn(name = "IDExamen", referencedColumnName = "IDExamen")
-    @ManyToOne
     private Examen iDExamen;
 
     public Parametro() {
