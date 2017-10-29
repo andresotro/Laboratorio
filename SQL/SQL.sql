@@ -134,11 +134,12 @@ INSERT INTO parametro(IDExamen, ValorMinimo, ValorMaximo, Nombre, Descripcion) V
 	(7, 77, 135, "Triyodotironina T3", "Hormona Tiroidea que juega un papel importante en el metabolismo.");
 	
 CREATE VIEW PacienteExamen AS
-SELECT re.IDRemision, re.IDExamen, CONCAT(p.Nombre,' ',p.Apellido) AS NombrePaciente, e.Nombre AS NombreExamen
-FROM remision_examen re
-INNER JOIN Examen e ON re.IDExamen = e.IDExamen
-INNER JOIN Remision r ON re.IDRemision = r.IDRemision
-INNER JOIN Paciente p ON p.IDPaciente = r.IDPaciente;
+ SELECT re.IDRemision, re.IDExamen, CONCAT(p.Nombre,' ',p.Apellido) AS NombrePaciente, e.Nombre AS NombreExamen
+ FROM remision_examen re
+ INNER JOIN Examen e ON re.IDExamen = e.IDExamen
+ INNER JOIN Remision r ON re.IDRemision = r.IDRemision
+ INNER JOIN Paciente p ON p.IDPaciente = r.IDPaciente
+ WHERE r.VerificaParametros = 0;
 	
 	
 
