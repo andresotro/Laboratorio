@@ -11,6 +11,7 @@ import java.util.Date;
 public class Remision implements Serializable {
 
     private Integer iDRemision;
+    private boolean verificaParametros;
     private Date fecha;
     private String razon;
     private int iDMedico;
@@ -23,18 +24,20 @@ public class Remision implements Serializable {
         this.iDRemision = iDRemision;
     }
 
-    public Remision(Integer iDRemision, Date fecha, String razon) {
+    public Remision(Integer iDRemision, Date fecha, String razon, boolean verificaParametros) {
         this.iDRemision = iDRemision;
         this.fecha = fecha;
         this.razon = razon;
+        this.verificaParametros = verificaParametros;
     }
 
-    Remision(int id, int idPaciente, Date fecha, int idMedico, String razon) {
+    Remision(int id, int idPaciente, Date fecha, int idMedico, String razon, boolean verificaParametros) {
         this.iDRemision = id;
         this.iDPaciente = idPaciente;
         this.fecha = fecha;
         this.iDMedico = idMedico;
         this.razon = razon;
+        this.verificaParametros = verificaParametros;
     }
 
     public Integer getIDRemision() {
@@ -43,6 +46,14 @@ public class Remision implements Serializable {
 
     public void setIDRemision(Integer iDRemision) {
         this.iDRemision = iDRemision;
+    }
+    
+    public boolean getVerificaParametros(){
+        return verificaParametros;
+    }
+    
+    public void setVerificaParametros(){
+        this.verificaParametros = verificaParametros;
     }
 
     public Date getFecha() {

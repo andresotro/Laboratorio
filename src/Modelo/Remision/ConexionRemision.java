@@ -45,7 +45,8 @@ public class ConexionRemision {
             Date fecha = resultSet.getDate("Fecha");
             int idMedico = resultSet.getInt("IDMedico");
             String razon = resultSet.getString("Razon");
-            remisiones.add(new Remision(id, idPaciente, fecha, idMedico, razon));
+            boolean verifica = resultSet.getBoolean("VerificaParametros");
+            remisiones.add(new Remision(id, idPaciente, fecha, idMedico, razon, verifica));
         }
         
         statement.close();
@@ -66,14 +67,15 @@ public class ConexionRemision {
             connection = ConexionDB.conectar();
 
             //Crear sentencia SQL y statement y ejecutar
-            String sentenciaSQL = "INSERT INTO remision (IDPaciente, Fecha, IDMedico, Razon) VALUES (?,?,?,?)";
+            String sentenciaSQL = "INSERT INTO remision (IDPaciente, Fecha, IDMedico, Razon, VerificaParametros) VALUES (?,?,?,?,?)";
             preparedStatement = connection.prepareStatement(sentenciaSQL);
             preparedStatement.setInt(1, r.getIDPaciente());
             SimpleDateFormat formatDate = new SimpleDateFormat("yyyy-MM-dd");
             preparedStatement.setString(2, formatDate.format(r.getFecha()));
             preparedStatement.setInt(3, r.getIDMedico());
             preparedStatement.setString(4, r.getRazon());
-            
+            preparedStatement.setBoolean(5, r.getVerificaParametros());
+
             preparedStatement.execute();
 
             preparedStatement.close();
@@ -96,13 +98,14 @@ public class ConexionRemision {
         connection = ConexionDB.conectar();
 
         //Crear sentencia SQL y statement
-        String sentenciaSQL = "SELECT * FROM remision WHERE IDMedico=? AND IDPaciente=? AND Fecha=? AND Razon=?";
+        String sentenciaSQL = "SELECT * FROM remision WHERE IDMedico=? AND IDPaciente=? AND Fecha=? AND Razon=? AND VerificaParametros=?";
         preparedStatement = connection.prepareStatement(sentenciaSQL);
         preparedStatement.setInt(1, r.getIDMedico());
         preparedStatement.setInt(2, r.getIDPaciente());
         SimpleDateFormat formatDate = new SimpleDateFormat("yyyy-MM-dd");
         preparedStatement.setString(3, formatDate.format(r.getFecha()));
         preparedStatement.setString(4, r.getRazon());
+        preparedStatement.setBoolean(5, r.getVerificaParametros());
 
         //Ejecutar SQL y guardar valores de consulta en resultSet
         resultSet = preparedStatement.executeQuery();
@@ -113,7 +116,8 @@ public class ConexionRemision {
             Date fecha = resultSet.getDate("Fecha");
             int idMedico = resultSet.getInt("IDMedico");
             String razon = resultSet.getString("Razon");
-            remision = new Remision(id, idPaciente, fecha, idMedico, razon);
+            boolean Verifica = resultSet.getBoolean("VerificaParametros");
+            remision = new Remision(id, idPaciente, fecha, idMedico, razon, Verifica);
         }
         
         preparedStatement.close();
