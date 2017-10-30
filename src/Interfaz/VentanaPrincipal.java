@@ -325,10 +325,10 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             if (paciente.getUsuario().equals(usuario) && paciente.getPassword().equals(password)) {
                 pac = paciente;
                 encontrado = true;
-//                VentanaPaciente v = new VentanaPaciente(pac);
-//                v.setLocationRelativeTo(null);
-//                v.setVisible(true);
-//                this.setVisible(false);
+                SeleccionExamen v = new SeleccionExamen(pac);
+                v.setLocationRelativeTo(null);
+                v.setVisible(true);
+               this.setVisible(false);
                 break;
             }
         }

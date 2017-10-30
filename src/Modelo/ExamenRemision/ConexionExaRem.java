@@ -67,19 +67,21 @@ public class ConexionExaRem {
         connection.close();
     }
     
-    public List<String> obtenerNombres() throws SQLException{
+    public List<String> obtenerNombresBacteriologa() throws SQLException{
         
         List<String> nombres = new ArrayList<>();
         
         Connection connection;
         Statement statement;
         ResultSet resultSet;
+        String sentenciaSQL;
 
         //Establecer la conexi�n
         connection = ConexionDB.conectar();
-
+            sentenciaSQL = "SELECT * FROM PacienteExamen";
+        
         //Crear sentencia SQL y statement
-        String sentenciaSQL = "SELECT * FROM PacienteExamen";
+        
         statement = connection.createStatement();
 
         //Ejecutar SQL y guardar valores de consulta en resultSet
@@ -90,10 +92,10 @@ public class ConexionExaRem {
             String nombreExamen = resultSet.getString("NombreExamen");
             String idRemision = resultSet.getString("IDRemision");
             String idExamen = resultSet.getString("IDExamen");
-
-            nombres.add(idRemision+idExamen +" - "+nombreExamen+" - "+ nombrePaciente);
-        }
-
+            
+            nombres.add(idRemision+idExamen +" - "+nombreExamen);
+            }  
+        
         statement.close();
         resultSet.close();
         connection.close();
@@ -101,5 +103,41 @@ public class ConexionExaRem {
         return nombres;
         
     }
+    
+    public List<String> obtenerNombresPaciente(int IDPaciente) throws SQLException{
+        
+        List<String> nombres = new ArrayList<>();
+        
+        Connection connection;
+        Statement statement;
+        ResultSet resultSet;
+        String sentenciaSQL;
 
+        //Establecer la conexi�n
+        connection = ConexionDB.conectar();
+            sentenciaSQL = "SELECT * FROM PacienteExamen1";
+        
+        //Crear sentencia SQL y statement
+        
+        statement = connection.createStatement();
+
+        //Ejecutar SQL y guardar valores de consulta en resultSet
+        resultSet = statement.executeQuery(sentenciaSQL);
+
+        while (resultSet.next()) {
+            String nombrePaciente = resultSet.getString("NombrePaciente");
+            String nombreExamen = resultSet.getString("NombreExamen");
+            String idRemision = resultSet.getString("IDRemision");
+            String idExamen = resultSet.getString("IDExamen");
+            
+            nombres.add(idRemision+idExamen +" - "+nombreExamen);
+        }  
+        
+        statement.close();
+        resultSet.close();
+        connection.close();
+
+        return nombres;
+    }
 }
+

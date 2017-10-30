@@ -142,6 +142,14 @@ CREATE VIEW PacienteExamen AS
  WHERE r.VerificaParametros = 0;
 	
 	
+CREATE VIEW PacienteExamen1 AS
+ SELECT re.IDRemision, re.IDExamen, CONCAT(p.Nombre,' ',p.Apellido) AS NombrePaciente, e.Nombre AS NombreExamen, p.IDPaciente
+ FROM remision_examen re
+ INNER JOIN Examen e ON re.IDExamen = e.IDExamen
+ INNER JOIN Remision r ON re.IDRemision = r.IDRemision
+ INNER JOIN Paciente p ON p.IDPaciente = r.IDPaciente
+ WHERE r.VerificaParametros = 1;
+	
 
 
 
