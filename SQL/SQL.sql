@@ -153,7 +153,13 @@ CREATE VIEW PacienteExamen1 AS
  WHERE r.VerificaParametros = 1
  GROUP BY p.IDPaciente, e.Nombre;
 	
-
+CREATE VIEW RemisionValor AS
+ SELECT r.IDRemision, p.IDParametro, rt.Valor
+ FROM resultado rt
+ INNER JOIN parametro p ON p.IDParametro = rt.IDParametro
+ INNER JOIN examen e ON p.IDExamen = e.IDExamen
+ INNER JOIN remision_examen re ON re.IDExamen = e.IDExamen
+ INNER JOIN remision r ON r.IDRemision = re.IDRemision;
 
 
 
