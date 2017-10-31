@@ -143,12 +143,15 @@ CREATE VIEW PacienteExamen AS
 	
 	
 CREATE VIEW PacienteExamen1 AS
- SELECT re.IDRemision, re.IDExamen, CONCAT(p.Nombre,' ',p.Apellido) AS NombrePaciente, e.Nombre AS NombreExamen, p.IDPaciente
+ SELECT re.IDRemision, re.IDExamen, CONCAT(p.Nombre,' ',p.Apellido) AS NombrePaciente, e.Nombre AS NombreExamen, p.IDPaciente, ba.IDBacteriologa
  FROM remision_examen re
  INNER JOIN Examen e ON re.IDExamen = e.IDExamen
  INNER JOIN Remision r ON re.IDRemision = r.IDRemision
  INNER JOIN Paciente p ON p.IDPaciente = r.IDPaciente
- WHERE r.VerificaParametros = 1;
+ INNER JOIN Resultado res ON res.IDPaciente = p.IDPaciente
+ INNER JOIN Bacteriologa ba ON ba.IDBacteriologa = res.IDBacteriologa
+ WHERE r.VerificaParametros = 1
+ GROUP BY p.IDPaciente, e.Nombre;
 	
 
 

@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -59,8 +60,20 @@ public class SeleccionExamen extends javax.swing.JFrame{
         Examenes.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 
         jButton1.setText("Continuar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt, pac);
+            }
+        });
 
         jButton2.setText("Salir");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -103,13 +116,29 @@ public class SeleccionExamen extends javax.swing.JFrame{
         v.setVisible(true);
     }   
     
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt, Paciente pac) {                                         
+        try{
+            String examen = Examenes.getSelectedItem().toString();
+            this.setVisible(false);
+            VentanaPaciente vp = new VentanaPaciente(examen, pac);
+            vp.setLocationRelativeTo(null);
+            vp.setVisible(true);
+            
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(rootPane, "Ingrese el examen a buscar");
+        }
+    }
+    
     private void setModelo(Paciente pac){
         ConexionExaRem cx = new ConexionExaRem();
         try {
             List<String> examenes = new ArrayList<>();
             examenes.add(null);
             for(String s : cx.obtenerNombresPaciente(pac.getIDPaciente())){
-                examenes.add(s);
+                String[] partes = s.split(" - ");
+                if(partes[0].equals(Integer.toString(pac.getIDPaciente()))){
+                    examenes.add(partes[1]+partes[3]+partes[5]+" - "+partes[2]);
+                } 
             }
             Examenes.setModel(new DefaultComboBoxModel(examenes.toArray(new String[examenes.size()])));
         } catch (SQLException e) {

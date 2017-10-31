@@ -311,7 +311,7 @@ public class RegistroMedico extends javax.swing.JFrame {
                 Medico med = c.obtenerMedicoRegistrado();
                 
                 JOptionPane.showMessageDialog(null, "¡Registro Exitoso!");
-                VentanaMedico vm = new VentanaMedico(med);
+                VentanaPrincipal vm = new VentanaPrincipal();
                 vm.setLocationRelativeTo(null);
                 vm.setVisible(true);
                 this.dispose();

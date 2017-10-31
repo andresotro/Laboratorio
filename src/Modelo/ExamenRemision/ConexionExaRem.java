@@ -93,7 +93,7 @@ public class ConexionExaRem {
             String idRemision = resultSet.getString("IDRemision");
             String idExamen = resultSet.getString("IDExamen");
             
-            nombres.add(idRemision+idExamen +" - "+nombreExamen);
+            nombres.add(idRemision+idExamen +" - "+nombreExamen+" - "+nombrePaciente);
             }  
         
         statement.close();
@@ -129,8 +129,10 @@ public class ConexionExaRem {
             String nombreExamen = resultSet.getString("NombreExamen");
             String idRemision = resultSet.getString("IDRemision");
             String idExamen = resultSet.getString("IDExamen");
+            String idPaciente = resultSet.getString("IDPaciente");
+            String idBac = resultSet.getString("IDBacteriologa");
             
-            nombres.add(idRemision+idExamen +" - "+nombreExamen);
+            nombres.add(idPaciente +" - "+idRemision+" - "+nombreExamen+" - "+idExamen+" - "+nombrePaciente+" - "+idBac);
         }  
         
         statement.close();

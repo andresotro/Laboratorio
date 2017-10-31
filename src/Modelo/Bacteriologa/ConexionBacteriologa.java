@@ -76,4 +76,41 @@ public class ConexionBacteriologa {
         
     }
     
+    public Bacteriologa obtenerBacteriologa( int iDBacteriologa ) throws Exception {
+        
+        Bacteriologa bacteriologa = new Bacteriologa();
+        
+        Connection connection;
+        Statement statement;
+        ResultSet resultSet;
+
+        //Establecer la conexi�n
+        connection = ConexionDB.conectar();
+
+        //Crear sentencia SQL y statement
+        String sentenciaSQL = "SELECT * FROM bacteriologa WHERE IDBacteriologa="+iDBacteriologa;
+        statement = connection.createStatement();
+
+        //Ejecutar SQL y guardar valores de consulta en resultSet
+        resultSet = statement.executeQuery(sentenciaSQL);
+        
+        while (resultSet.next()) {
+            int id = resultSet.getInt("IDBacteriologa");
+            String nombre = resultSet.getString("Nombre");
+            String apellido = resultSet.getString("Apellido");
+            long identificacion = resultSet.getLong("Identificacion");
+            String usuario = resultSet.getString("Usuario");
+            String contraseña = resultSet.getString("Password");
+
+            bacteriologa = new Bacteriologa(id, nombre, apellido, identificacion, usuario, contraseña);
+        }
+        
+        statement.close();
+        resultSet.close();
+        connection.close();
+        
+        return bacteriologa;
+        
+    }
+    
 }

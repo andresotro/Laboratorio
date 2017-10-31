@@ -320,6 +320,12 @@ public class RegistroPaciente extends javax.swing.JFrame {
                 p.setPassword(password);
                 p.setGeneroString(genero.toString());
                 c.insertarPaciente(p);
+                
+                JOptionPane.showMessageDialog(null, "¡Registro Exitoso!");
+                VentanaPrincipal e = new VentanaPrincipal();
+                e.setLocationRelativeTo(null);
+                e.setVisible(true);
+                this.dispose();
             } catch (Exception e) {
                 e.printStackTrace();
             }

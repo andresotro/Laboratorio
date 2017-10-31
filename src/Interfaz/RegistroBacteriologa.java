@@ -248,7 +248,7 @@ public class RegistroBacteriologa extends javax.swing.JFrame {
                 c.insertarBacteriologa(b);
                 
                 JOptionPane.showMessageDialog(null, "¡Registro Exitoso!");
-                SeleccionRemision sr = new SeleccionRemision(b);
+                VentanaPrincipal sr = new VentanaPrincipal();
                 sr.setLocationRelativeTo(null);
                 sr.setVisible(true);
                 this.dispose();

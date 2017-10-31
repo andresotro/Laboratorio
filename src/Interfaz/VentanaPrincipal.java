@@ -328,7 +328,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 SeleccionExamen v = new SeleccionExamen(pac);
                 v.setLocationRelativeTo(null);
                 v.setVisible(true);
-               this.setVisible(false);
+                this.setVisible(false);
                 break;
             }
         }
