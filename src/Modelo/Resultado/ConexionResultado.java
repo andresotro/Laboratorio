@@ -9,6 +9,7 @@ import Conexion.ConexionDB;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -55,9 +56,9 @@ public class ConexionResultado {
         return resultados;
         
     }
-    
-    public void insertarResultado(Resultado r) throws Exception{
-        
+
+    public void insertarResultado(Resultado r) throws Exception {
+
         Connection connection;
         PreparedStatement preparedStatement;
 
@@ -73,16 +74,16 @@ public class ConexionResultado {
         preparedStatement.setInt(4, r.getIDBacteriologa());
         SimpleDateFormat formatDate = new SimpleDateFormat("yyyy-MM-dd");
         preparedStatement.setString(5, formatDate.format(r.getFechaRealizacion()));
-        
+
         preparedStatement.execute();
-        
+
         preparedStatement.close();
         connection.close();
-        
+
     }
-    
-    public Resultado obtenerResultado( Resultado r ) throws Exception{
-        
+
+    public Resultado obtenerResultado(Resultado r) throws Exception {
+
         Resultado resultado = new Resultado();
 
         Connection connection;
@@ -101,7 +102,7 @@ public class ConexionResultado {
 
         //Ejecutar SQL y guardar valores de consulta en resultSet
         resultSet = preparedStatement.executeQuery();
-        
+
         while (resultSet.next()) {
             int idResultado = resultSet.getInt("IDResultado");
             int idParametro = resultSet.getInt("IDParametro");
@@ -112,13 +113,46 @@ public class ConexionResultado {
 
             resultado = new Resultado(idResultado, idParametro, idPaciente, valor, idBacteriologa, fecha);
         }
-        
+
         preparedStatement.close();
         resultSet.close();
         connection.close();
-        
+
         return resultado;
-        
+
     }
-    
+
+    public String obtenerResultadoP(int iDParametro, int iDRemision) throws Exception {
+
+        String resultado = new String();
+        Connection connection;
+        Statement statement;
+        ResultSet resultSet;
+
+        //Establecer la conexi�n
+        connection = ConexionDB.conectar();
+
+        //Crear sentencia SQL y statement
+        String sentenciaSQL = "SELECT * FROM remisionvalor WHERE IDParametro=" + iDParametro + " AND IDRemision=" + iDRemision;
+
+        statement = connection.createStatement();
+
+        //Ejecutar SQL y guardar valores de consulta en resultSet
+        resultSet = statement.executeQuery(sentenciaSQL);
+
+        while (resultSet.next()) {
+            String idResultado = resultSet.getString("IDRemision");
+            String idParametro = resultSet.getString("IDParametro");
+            String valor = resultSet.getString("Valor");
+
+            resultado = idResultado + " - " + idParametro + " - " + valor;
+        }
+
+        statement.close();
+        resultSet.close();
+        connection.close();
+
+        return resultado;
+    }
+
 }

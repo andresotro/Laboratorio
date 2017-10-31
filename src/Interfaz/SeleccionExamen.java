@@ -116,7 +116,8 @@ public class SeleccionExamen extends javax.swing.JFrame{
         v.setVisible(true);
     }   
     
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt, Paciente pac) {                                         
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt, Paciente pac) {      
+        ConexionExaRem cx = new ConexionExaRem();
         try{
             String examen = Examenes.getSelectedItem().toString();
             this.setVisible(false);
@@ -134,7 +135,7 @@ public class SeleccionExamen extends javax.swing.JFrame{
         try {
             List<String> examenes = new ArrayList<>();
             examenes.add(null);
-            for(String s : cx.obtenerNombresPaciente(pac.getIDPaciente())){
+            for(String s : cx.obtenerNombresPaciente()){
                 String[] partes = s.split(" - ");
                 if(partes[0].equals(Integer.toString(pac.getIDPaciente()))){
                     examenes.add(partes[1]+partes[3]+partes[5]+" - "+partes[2]);

@@ -15,7 +15,7 @@ import java.util.*;
  */
 public class ConexionExaRem {
     
-    public List<ExamenRemision> obtenerGeneros() throws Exception {
+    public List<ExamenRemision> obtenerExaRems() throws Exception {
         
         List<ExamenRemision> exarems = new ArrayList<>();
 
@@ -104,7 +104,7 @@ public class ConexionExaRem {
         
     }
     
-    public List<String> obtenerNombresPaciente(int IDPaciente) throws SQLException{
+    public List<String> obtenerNombresPaciente() throws SQLException{
         
         List<String> nombres = new ArrayList<>();
         

@@ -264,6 +264,7 @@ public class VentanaBacteriologa extends javax.swing.JFrame {
                     return canEdit[columnIndex];
                 }
             });
+            jTable2.getTableHeader().setReorderingAllowed(false);
             jScrollPane2.setViewportView(jTable2);
 
         } catch (Exception e) {

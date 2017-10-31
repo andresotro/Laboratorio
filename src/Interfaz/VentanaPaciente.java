@@ -5,9 +5,11 @@
  */
 package Interfaz;
 
+import Modelo.Bacteriologa.Bacteriologa;
 import Modelo.Bacteriologa.ConexionBacteriologa;
 import Modelo.Examen.ConexionExamen;
 import Modelo.Examen.Examen;
+import Modelo.ExamenRemision.ConexionExaRem;
 import Modelo.Medico.ConexionMedico;
 import Modelo.Paciente.Paciente;
 import Modelo.Parametro.ConexionParametro;
@@ -15,6 +17,8 @@ import Modelo.Parametro.Parametro;
 import Modelo.Remision.ConexionRemision;
 import Modelo.Remision.Remision;
 import Modelo.Resultado.ConexionResultado;
+import Modelo.Resultado.Resultado;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -47,7 +51,7 @@ public class VentanaPaciente extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         TipoExamen = new javax.swing.JLabel();
-        Remitido = new javax.swing.JLabel();
+        Medico = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         analisis = new javax.swing.JLabel();
 
@@ -170,7 +174,7 @@ public class VentanaPaciente extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(TipoExamen, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(Remitido, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(Medico, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(10, 10, 10)
                                 .addComponent(jLabel13)
@@ -188,7 +192,7 @@ public class VentanaPaciente extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(TipoExamen, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(Remitido, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(Medico, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel13)
@@ -201,7 +205,7 @@ public class VentanaPaciente extends javax.swing.JFrame {
                     .addComponent(jButton2))
                 .addGap(22, 22, 22))
         );
-
+        setModelo(examen, pac);
 
         pack();
     }// </editor-fold>                        
@@ -217,14 +221,14 @@ public class VentanaPaciente extends javax.swing.JFrame {
         
     }                                        
     
-    private void setModelo(String examen){
+    private void setModelo(String examen, Paciente pac){
         try {
             ConexionRemision cr = new ConexionRemision();
             ConexionExamen ce = new ConexionExamen();
             ConexionMedico cm = new ConexionMedico();
             ConexionParametro cp = new ConexionParametro();
             ConexionBacteriologa cb = new ConexionBacteriologa();
-            ConexionResultado cre = new ConexionResultado();
+            ConexionResultado ct = new ConexionResultado();
 
             String[] partes = examen.split(" - ");
             String[] id = partes[0].split("");
@@ -237,9 +241,11 @@ public class VentanaPaciente extends javax.swing.JFrame {
                 dr = "Dr.";
             }else{
                 dr= "Dra.";
-            }
+            }           
+            Medico.setText(dr+" "+cm.obtenerMedico(r.getIDMedico()).getNombre()+" "+cm.obtenerMedico(r.getIDMedico()).getApellido());
+            analisis.setText("Dra. "+cb.obtenerBacteriologa(Integer.parseInt(id[2])).getNombre()+" "+cb.obtenerBacteriologa(Integer.parseInt(id[2])).getApellido());
             
-            Remitido.setText(dr+" "+cm.obtenerMedico(r.getIDMedico()).getNombre()+" "+cm.obtenerMedico(r.getIDMedico()).getApellido());
+            
             Examen e = ce.obtenerExamen(Integer.parseInt(id[1]));
             List<Parametro> parametros = cp.obtenerParametrosExamen(e.getIDExamen());
             
@@ -254,7 +260,9 @@ public class VentanaPaciente extends javax.swing.JFrame {
                 parametroT[i][2] = Float.toString(parametros.get(i).getValorMaximo());
             }
             for (int i = 0; i < parametros.size(); i++) {
-                parametroT[i][3] = null;
+                String resultado = ct.obtenerResultadoP(parametros.get(i).getIDParametro(), Integer.parseInt(id[0]));
+                String[] valores = resultado.split(" - ");
+                parametroT[i][3] = valores[2];
             }
             for (int i = 0; i < parametros.size(); i++) {
                 if(Float.parseFloat(parametroT[i][3])>=Float.parseFloat(parametroT[i][2])){
@@ -277,7 +285,7 @@ public class VentanaPaciente extends javax.swing.JFrame {
                     }
             ) {
                 Class[] types = new Class[]{
-                    java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Float.class, java.lang.String.class
+                    java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
                 };
                 boolean[] canEdit = new boolean[]{
                     false, false, false, false, false
@@ -291,6 +299,7 @@ public class VentanaPaciente extends javax.swing.JFrame {
                     return canEdit[columnIndex];
                 }
             });
+            jTable3.getTableHeader().setReorderingAllowed(false);
             jScrollPane3.setViewportView(jTable3);
             
         } catch (Exception e) {
@@ -304,7 +313,7 @@ public class VentanaPaciente extends javax.swing.JFrame {
     private javax.swing.JLabel Fecha2;
     private javax.swing.JLabel Medico2;
     private javax.swing.JLabel Paciente2;
-    private javax.swing.JLabel Remitido;
+    private javax.swing.JLabel Medico;
     private javax.swing.JLabel TipoExamen;
     private javax.swing.JLabel analisis;
     private javax.swing.JButton jButton1;

@@ -349,7 +349,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                     VentanaMedico v = new VentanaMedico(med);
                     v.setLocationRelativeTo(null);
                     v.setVisible(true);
-                    this.setVisible(false);
+                    this.dispose();
                     break;
                 }
             }
