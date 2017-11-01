@@ -24,6 +24,7 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
+import java.awt.Desktop;
 /**
  *
  * @author Andrés
@@ -359,9 +360,12 @@ public class VentanaPaciente extends javax.swing.JFrame {
             }
             doc.add(table);
             doc.close();
+            Desktop desktop = Desktop.getDesktop();
+            File f = new File("Resultados " + partes[1] + " de " + pac.getNombre() + " " + pac.getApellido() + ".pdf");
+            desktop.open(f);
+
             JOptionPane.showMessageDialog(null, "Archivo PDF Generado Correctamente");
-        }
-        catch(Exception ex){
+        } catch (Exception ex) {
             ex.printStackTrace();
         }
     }
