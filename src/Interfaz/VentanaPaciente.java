@@ -5,11 +5,9 @@
  */
 package Interfaz;
 
-import Modelo.Bacteriologa.Bacteriologa;
 import Modelo.Bacteriologa.ConexionBacteriologa;
 import Modelo.Examen.ConexionExamen;
 import Modelo.Examen.Examen;
-import Modelo.ExamenRemision.ConexionExaRem;
 import Modelo.Medico.ConexionMedico;
 import Modelo.Paciente.Paciente;
 import Modelo.Parametro.ConexionParametro;
@@ -17,10 +15,15 @@ import Modelo.Parametro.Parametro;
 import Modelo.Remision.ConexionRemision;
 import Modelo.Remision.Remision;
 import Modelo.Resultado.ConexionResultado;
-import Modelo.Resultado.Resultado;
-import java.util.ArrayList;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfWriter;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.util.List;
-
+import javax.swing.JOptionPane;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
 /**
  *
  * @author Andrés
@@ -30,7 +33,7 @@ public class VentanaPaciente extends javax.swing.JFrame {
         initComponents(pac, examen);
     }
     
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings({"unchecked", "Convert2Lambda"})
     // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
     private void initComponents(Paciente pac, String examen) {
         
@@ -138,6 +141,7 @@ public class VentanaPaciente extends javax.swing.JFrame {
 
         jButton1.setText("Volver");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt, pac);
             }
@@ -145,8 +149,9 @@ public class VentanaPaciente extends javax.swing.JFrame {
 
         jButton2.setText("Generar Archivo");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                jButton2ActionPerformed(evt, pac, examen);
             }
         });
 
@@ -217,8 +222,8 @@ public class VentanaPaciente extends javax.swing.JFrame {
         this.setVisible(false);
     }                                        
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {                                         
-        
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt, Paciente pac, String examen) {                                         
+        PDF(pac, examen);
     }                                        
     
     private void setModelo(String examen, Paciente pac){
@@ -236,6 +241,7 @@ public class VentanaPaciente extends javax.swing.JFrame {
             Remision r = cr.obtenerRemision(Integer.parseInt(id[0]));
             TipoExamen.setText(partes[1]);
             
+            @SuppressWarnings("UnusedAssignment")
             String dr = "";
             if(cm.obtenerMedico(r.getIDMedico()).getIDGenero() == 1){
                 dr = "Dr.";
@@ -266,14 +272,25 @@ public class VentanaPaciente extends javax.swing.JFrame {
             }
             for (int i = 0; i < parametros.size(); i++) {
                 if(Float.parseFloat(parametroT[i][3])>=Float.parseFloat(parametroT[i][2])){
-                    parametroT[i][4] = "Muy arriba papu";
-                }
-                else{
-                    if(Float.parseFloat(parametroT[i][3])>=Float.parseFloat(parametroT[i][2])){
-                        parametroT[i][4] = "Muy abajo papu";
+                    if(parametroT[i][0].endsWith("s")){
+                        parametroT[i][4] = parametroT[i][0]+" muy altos";
                     }
                     else{
-                        parametroT[i][4] = "Estas perfect ma fren";
+                        parametroT[i][4] = parametroT[i][0]+" muy alto";
+                    }
+                }
+                else{
+                    if(Float.parseFloat(parametroT[i][3])<=Float.parseFloat(parametroT[i][1])){
+                        if(parametroT[i][0].endsWith("s")){
+                            parametroT[i][4] = parametroT[i][0]+" muy bajos";
+                        }
+                        else{
+                            parametroT[i][4] = parametroT[i][0]+" muy bajo";
+                        }
+                        
+                    }
+                    else{
+                        parametroT[i][4] = parametroT[i][0]+" en buen estado";
                     }
                 }
             }
@@ -291,10 +308,12 @@ public class VentanaPaciente extends javax.swing.JFrame {
                     false, false, false, false, false
                 };
 
+                @Override
                 public Class getColumnClass(int columnIndex) {
                     return types[columnIndex];
                 }
 
+                @Override
                 public boolean isCellEditable(int rowIndex, int columnIndex) {
                     return canEdit[columnIndex];
                 }
@@ -304,6 +323,46 @@ public class VentanaPaciente extends javax.swing.JFrame {
             
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+    
+    public void PDF(Paciente pac, String examen){
+        try{
+            String[] partes = examen.split(" - ");
+            Document doc = new Document();
+            FileOutputStream archivo = new FileOutputStream(new File("Resultados "+partes[1]+" de "+pac.getNombre()+" "+pac.getApellido()+".pdf"));
+            PdfWriter.getInstance(doc, archivo);
+            doc.open();
+            if(pac.getIDGenero() == 1){
+                doc.add(new Paragraph("RESULTADOS EXAMEN SR: "+pac.getNombre()+" "+pac.getApellido()));
+            }
+            else{
+                doc.add(new Paragraph("RESULTADOS EXAMEN SRA: "+pac.getNombre()+" "+pac.getApellido()));
+            }
+            doc.add(new Paragraph(" "));
+            doc.add(new Paragraph("TIPO DE EXAMEN: "+TipoExamen.getText()));
+            doc.add(new Paragraph(" "));
+            doc.add(new Paragraph("REMISION REALIZADA POR: "+Medico.getText()));
+            doc.add(new Paragraph(" "));
+            doc.add(new Paragraph("PARAMETROS DEL EXAMEN: "));
+            PdfPTable table = new PdfPTable(5);
+            doc.add(new Paragraph(" "));
+            table.addCell("Paràmetro");
+            table.addCell("Valor Mìnimo");
+            table.addCell("Valor Màximo");
+            table.addCell("Valor Obtenido");
+            table.addCell("Anàlisis");
+            for(int i=0; i<jTable3.getRowCount(); i++){
+                for(int j=0; j<5; j++){
+                    table.addCell(jTable3.getValueAt(i, j).toString());
+                }
+            }
+            doc.add(table);
+            doc.close();
+            JOptionPane.showMessageDialog(null, "Archivo PDF Generado Correctamente");
+        }
+        catch(Exception ex){
+            ex.printStackTrace();
         }
     }
      

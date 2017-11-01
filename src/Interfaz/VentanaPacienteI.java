@@ -159,6 +159,8 @@ public class VentanaPacienteI extends javax.swing.JFrame {
         jTable3.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
                 {null, null, null, null, null}
             },
             new String [] {
@@ -180,6 +182,7 @@ public class VentanaPacienteI extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        jTable3.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_LAST_COLUMN);
         jScrollPane3.setViewportView(jTable3);
 
         jButton1.setText("Volver");

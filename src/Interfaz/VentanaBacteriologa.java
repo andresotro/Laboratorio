@@ -312,13 +312,11 @@ public class VentanaBacteriologa extends javax.swing.JFrame {
                     resultado.setIDPaciente(r.getIDPaciente());
                     resultado.setValor(Float.parseFloat(jTable2.getValueAt(i, 3).toString()));
                     resultado.setIDBacteriologa(bac.getIDBacteriologa());
-                    // <editor-fold defaultstate="collapsed" desc="Pasos para obtener fecha date2">
                     Calendar cal = Calendar.getInstance();
                     Date date = cal.getTime();
                     DateFormat formato = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
                     String fecha = formato.format(date);
                     Date date2 = formato.parse(fecha);
-                    // </editor-fold>
                     resultado.setFechaRealizacion(date2);
                     cs.insertarResultado(resultado);
                 }
