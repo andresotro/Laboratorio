@@ -12,12 +12,8 @@
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/USUARIO/Documents/GitHub/Laboratorio/src/Interfaz/SeleccionExamen.java</file>
-            <file>file:/C:/Users/USUARIO/Documents/GitHub/Laboratorio/src/Modelo/Resultado/ConexionResultado.java</file>
-            <file>file:/C:/Users/USUARIO/Documents/GitHub/Laboratorio/src/Interfaz/VentanaPrincipal.java</file>
-            <file>file:/C:/Users/USUARIO/Documents/GitHub/Laboratorio/src/Interfaz/VentanaPaciente.java</file>
-            <file>file:/C:/Users/USUARIO/Documents/GitHub/Laboratorio/src/Modelo/ExamenRemision/ConexionExaRem.java</file>
-            <file>file:/C:/Users/USUARIO/Documents/GitHub/Laboratorio/src/Modelo/Bacteriologa/ConexionBacteriologa.java</file>
+            <file>file:/C:/Users/DELL/Documents/GitHub/Laboratorio/src/Conexion/ConexionDB.java</file>
+            <file>file:/C:/Users/DELL/Documents/GitHub/Laboratorio/src/Interfaz/VentanaPaciente.java</file>
         </group>
     </open-files>
 </project-private>
